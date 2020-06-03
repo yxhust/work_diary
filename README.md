@@ -1,5 +1,10 @@
 # 工作日常
 
+## 2020-06-03
+1. idp业务：整理存储学习行为的MongoDB表，确定所需要同步到MySQL库的目标表结构。涉及到MongoDB文档的嵌套字段。
+2. 确定idp用户学习习惯看板要完成的功能点：在期数、关卡维度下，出勤时段（只取hour）次数（而非人数）统计，在出勤时段的完课率。目前，纠结于看板样式的呈现方式。
+3. 继续阅读用户画像，并整理有用信息到github。
+
 ## 2020-06-02
 1. 社群的用户表，因wehub被限制，如今开发使用opendns作为解决方案，登录微信全量更新好友关系。
 2. tableau看板：行功能区有聚合维度，对看板呈现的影响。[维度聚合资料](https://help.tableau.com/current/pro/desktop/zh-cn/calculations_aggregation.htm#tableau-%E4%B8%AD%E9%A2%84%E5%AE%9A%E4%B9%89%E8%81%9A%E5%90%88%E7%9A%84%E5%88%97%E8%A1%A8)
