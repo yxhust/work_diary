@@ -216,6 +216,21 @@ HBase是实时读写、高性能、列存储、可伸缩的分布式存储系统
 ```
 
 ### Elasticsearch存储
+1. elasticsearch简介
+elasticsearch：实时存储数据、实时检索数据、处理PB级数据。
+
+适用于对响应时间要求较高的场景，如：用户标签查询，用户人群计算，用户群多维透视分析
+
+elasticsearch存储结构：（类似于MongoDB，json文档为行）
+
+区分多个数据库的索引，索引包括多个类型（表），类型包括很多文档（行），然后每个文档包含很多字段（列）。定位方式：索引、类型、文档、字段。与关系型数据库差不多，from db.table where 满足条件的行 select 列。
+
+2. 应用场景
+HBase使用row key作为一级索引，不支持多条件查询。为支持高效查询，同时实现复杂查询，elasticsearch存储HBase的row key，实现步骤为：
+- 在elasticsearch中存放用于检索条件的数据，row key也存进去（检索条件的数据，目前难以理解，这一步体现了elasticsearch的复杂查询优势，否则不需要通过elasticsearch这一步）
+- 在elasticsearch中查找复杂标签对应的row key
+- 使用上一步的row key在hbase数据库中查询结果
+
 
 
 
