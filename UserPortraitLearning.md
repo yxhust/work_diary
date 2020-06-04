@@ -213,7 +213,7 @@ HBase是实时读写、高性能、列存储、可伸缩的分布式存储系统
   cursor = db.cursor()
   cursor.execute("INSERT INTO service_monitor(date, service_type, Hive_count, HBase_count) VALUES('"+datestr_+"', '
   db.commit()
-```
+  ```
 
 ### Elasticsearch存储
 1. elasticsearch简介
