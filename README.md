@@ -1,5 +1,34 @@
 # 工作日常
 
+## 2020-06-08
+- 使用DBeaver连接PrestoDB,使用PrestoDB连接host（含有名为hive的数据库）。
+   - 直接使用DBeaver连接hive会报错，'Could not open client transport with JDBC Uri: jdbc:hive2://host:port: Invalid status 72',这个报错信息表明无法用jdbc uri打开客户端传输。若host:port未出错，那就是hive客户端的问题。而连接远程host不需要安装本地hive，经过分析才明白原因在哪。
+   - 启示：要去仔细分析报错信息，不要忽视报错信息。
+   - PrestoDB：是一种用于大数据的高性能分布式SQL查询引擎。其架构允许用户查询各种数据源，如Hadoop、AWS S3、Alluxio、MySQL、Cassandra、Kafka和MongoDB。甚至可以在单个查询中查询来自多个数据源的数据。Presto是Apache许可证下发布的社区驱动的开源软件。
+   
+- 使用DBeaver连接远程mysql服务器ADB，不报错，完美查数据；但连接本地mysql库，报错，报错信息如下：
+   - 'Communications link failure
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+  Connection refused: connect
+  Connection refused: connect'
+  - 该信息表明，通信连接失败，具体的，驱动不能收到服务器的包。
+  - 第一番操作，驱动版本原因，MySQL本地是8.0以后版本，dbeaver默认驱动版本是5.0后。但更改8.0后驱动下载失败，mysql驱动直接挂掉了。
+  - 第二番操作，查看windows本地mysql服务，竟然是“已停止”。启动MySQL服务后，报错“Unable to load authentication plugin 'caching_sha2_password'.”。
+  - 查阅资料后，这是由于MySQL server8.0以后，默认的认证插件从mysql_native_password 变为caching_sha2_password，解决方案：https://blog.csdn.net/m0_37619183/article/details/81873465
+  - 打开'mysql 8.0 command line client'，输入密码闪退。切换到MySQL server bin目录，密码出问题，转换成MySQL本地安装的问题了。
+
+   
+- 周会总结：
+1. 中节点自媒宝投放：平台文章>平台二维码>用户阅读>用户扫码进入报名页>用户报名成功转化。涉及指标有：阅读数，扫码报名数，转化数，还有投放金额，投放成本等，都是用比率对过程环节的衡量。
+   - 现在遇到问题：数据看板突然不能显示某平台的投放数据。
+   - 分析：从路径上，且每个路径上都要有数据去验证是否是该路径出问题。一是平台二维码链接，二是扫码后能否跳转，三是跳转的目的链接是否正确，四是埋点数据能否被程序获取正常入库。
+   - 定位完问题，手动更新历史链接，调整程序脚本，能正常解析链接。
+2. hive
+  
+
+
+
+
 ## 2020-06-07
 - 整理工作内容，修改
 - 回顾自我学习的效率问题，照书抄一遍虽然能加深记忆，但缺乏自我思考知识内化的过程，后续会`记录成自己思考的样子，而不是书本中那种完美的样子，代码多结合实例去操作，即使是hive`
@@ -166,13 +195,4 @@ tableau呈现不存在管道关系，不会先计算维度再呈现度量区。
   
 
 ## 附注2020-04-30
-- [ ] 继续完成相关代码
-
-## 附注2020-04-29
-- [ ] 深度完善IDP入门课用户数据分析框架，即剖析需求，需要什么，我该做完什么
-- [ ] 开始编写相关的Python代码
-
-## 附注2020-04-28 
-* [x] 分析IDP入门课用户数据分析框架
-* [ ] [medium推荐文章](https://medium.muz.li/10-rules-of-dashboard-design-f1a4123028a2)
-
+- [ ] 
