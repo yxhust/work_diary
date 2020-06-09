@@ -43,7 +43,7 @@ Oracle（仅作为目标连接器）
 
 即使耗费时间装好teradata驱动后，但teradata的函数不是主流，开始选择方案二。
 
-- 方案二：安装pyhive模块。
+- 方案二：安装好pyhive模块。出现的问题为pyhive.exc.DatabaseError。（与 https://quabr.com/56219581/how-to-fix-pyhive-exc-databaseerror-message-line-1130-function-date-sub类似）
 
 
 
