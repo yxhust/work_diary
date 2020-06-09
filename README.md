@@ -1,5 +1,52 @@
 # 工作日常
 
+## 2020-06-09
+1. 使用HQL完成hive取数,主要阅读《hive编程指南》的HQL部分
+```sql
+select
+	/*+ STREAMTABLE(evcrr) */
+	evcrr.*,
+	cp.title,
+	cp.resource_message ,
+	cp.resource_option
+from
+	hive.forchange_prod.external_vm_classroom_resource_records evcrr
+left outer join hive.forchange_prod.cleword_packages cp on
+	evcrr.app_id = cp.app_id
+	and evcrr.package_id = cp.package_id
+	and evcrr.resource_id = cp.resource_id
+where
+	evcrr.app_id = '9' 
+```
+2. 在python使用sqlalchemy读取presto的hive时，报错：`sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:presto`
+- 方案一：
+使用Teradata连接presto，文章来源 https://stackoverflow.com/questions/53367842/python-compiled-script-giving-error-of-cant-load-plugin-sqlalchemy-dialectsp
+
+关于teradata数据库及查询语句，[官方文档](https://www.docs.teradata.com/reader/uR6Sq~i19bIG3mKP7cb6lA/4gXDlAZwdey2LOD3mob1MA)这样描述：
+```
+Teradata® QueryGrid™ 2.0x 是一种数据分析结构，它可以跨一个或多个数据源提供无缝、高性能的数据访问、处理和移动。数据源可以是相同类型的，例如 Teradata Database 和 Teradata Database，也可以是不同类型的，例如 Teradata Database 和 Presto。
+
+Teradata QueryGrid 连接器用于联接网络结构中的数据源。每个连接器都能启动 SQL 查询，并且可以是该网络结构中的 SQL 查询目标。链接指定哪些连接器可以相互通信。
+
+Teradata QueryGrid 支持以下连接器：
+Teradata Database
+Presto
+hive
+Spark SQL
+Oracle（仅作为目标连接器）
+```
+
+上述只是简单了解teradata数据库的基础概念，而我要解决的是在python中怎么使用teradata包连接presto库的hive。
+
+查阅python teradata资料，https://downloads.teradata.com/tools/reference/teradata-python-module#Installing ，报错信息为`teradata.api.InterfaceError: ('DRIVER_NOT_FOUND', "No driver found with name 'Teradata'.  Available drivers: SQL Server,PostgreSQL ANSI(x64),PostgreSQL Unicode(x64),Amazon Redshift (x64),MySQL ODBC 8.0 ANSI Driver,MySQL ODBC 8.0 Unicode Driver,ODBC Driver 17 for SQL Server")
+`,这表明需要装Teradata数据库驱动。
+
+即使耗费时间装好teradata驱动后，但teradata的函数不是主流，开始选择方案二。
+
+- 方案二：安装pyhive模块。
+
+
+
 ## 2020-06-08
 - 使用DBeaver连接PrestoDB,使用PrestoDB连接host（含有名为hive的数据库）。
    - 直接使用DBeaver连接hive会报错，'Could not open client transport with JDBC Uri: jdbc:hive2://host:port: Invalid status 72',这个报错信息表明无法用jdbc uri打开客户端传输。若host:port未出错，那就是hive客户端的问题。而连接远程host不需要安装本地hive，经过分析才明白原因在哪。
