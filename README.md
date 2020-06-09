@@ -45,6 +45,13 @@ Oracle（仅作为目标连接器）
 
 - 方案二：安装好pyhive模块。出现的问题为pyhive.exc.DatabaseError。（与 https://quabr.com/56219581/how-to-fix-pyhive-exc-databaseerror-message-line-1130-function-date-sub类似）
 
+应该是hive的url问题，环境变量不要''。
+`hive_engine = create_engine('presto://{0}@{1}:{2}/hive/{3}'.format(hive_user, hive_host, hive_port,hive_db))`
+
+pyhive参考资料：
+https://github.com/dropbox/PyHive
+
+
 
 
 ## 2020-06-08
