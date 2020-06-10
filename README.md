@@ -1,5 +1,20 @@
 # 工作日常
 
+## 2020-06-10
+1. 总结连接不同的数据库
+- 场景一：在客户端（如Navicat，datagrip，dbeaver，nosqlbooster）连接数据库。
+	 - 需要在客户端下载对应的数据库服务器驱动，如dbeaver客户端下载jdbc驱动连接presto库的hive服务器。
+- 场景二：在python中连接各数据库。
+	 - 如连接MySQL数据库，使用pymysql包。
+	   - 方式一，`DBAPI`，pymysql.connect(host).cursor();cursor.execute(sql);cursor.fetchall()
+		 - 方式二，`sqlalchemy`，使用pymysql驱动连接mysql数据库，connect_string='mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]',pd.read_sql(sql,engine/connection)
+	 - 如连接presto数据库的hive，使用pyhive包。
+		  - 方式一，pyhive-presto-sample,https://gist.github.com/tommarute/9e6c18350964d99988667707b66af259 , https://pydoc.net/PyHive/0.3.0/pyhive.presto/
+	    - 方式二，sqlalchemy,create_engine('presto...')
+	
+2. 规划行为标签代码
+
+
 ## 2020-06-09
 1. 使用HQL完成hive取数,主要阅读《hive编程指南》的HQL部分
 ```sql
