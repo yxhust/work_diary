@@ -4,15 +4,75 @@
 1. 总结连接不同的数据库
 - 场景一：在客户端（如Navicat，datagrip，dbeaver，nosqlbooster）连接数据库。
 	 - 需要在客户端下载对应的数据库服务器驱动，如dbeaver客户端下载jdbc驱动连接presto库的hive服务器。
-- 场景二：在python中连接各数据库。
-	 - 如连接MySQL数据库，使用pymysql包。
-	   - 方式一，`DBAPI`，pymysql.connect(host).cursor();cursor.execute(sql);cursor.fetchall()
-		 - 方式二，`sqlalchemy`，使用pymysql驱动连接mysql数据库，connect_string='mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]',pd.read_sql(sql,engine/connection)
-	 - 如连接presto数据库的hive，使用pyhive包。
-		  - 方式一，pyhive-presto-sample,https://gist.github.com/tommarute/9e6c18350964d99988667707b66af259 , https://pydoc.net/PyHive/0.3.0/pyhive.presto/
-	    - 方式二，sqlalchemy,create_engine('presto...')
+- 场景二：在python中连接各数据库。如连接presto数据库的hive
+    - 方式一，`pyhive.presto`,注意presto.connect()方法格式,其中没有db参数
+    ```
+    conn = presto.connect(
+    host='your-presto-host.net',
+    port=8080,
+    protocol='https',
+    catalog='the-catalog',
+    schema='the-schema',
+    username='the-user',
+    requests_kwargs=req_kw,
+    )
+    ```
+    参考资料：https://gist.github.com/tommarute/9e6c18350964d99988667707b66af259 , 
+    https://pydoc.net/PyHive/0.3.0/pyhive.presto/
+    - 方式二，`sqlalchemy.engine`,create_engine('presto...')	    
 	
-2. 规划行为标签代码
+2. 规划行为标签代码框架
+
+3. 总结python中连接MySQL数据库的方案
+方案一：使用pymysql的想关方法（即DBAPI方式），
+```
+cur = pymysql.connect(user=user,password=password,host=host,port=port).cursor() 
+# cursor方法参数cursor(cursor=pymysql.cursors.DictCursor)，查询结果为字典key-value
+cur.execute(sql)
+results = cur.fetchall()
+print(results) # 返回多行记录元组的元组
+```
+或
+```
+con = pymysql.connect(user=user,password=password,host=host,port=port)
+result = pd.read_sql(sql,con)
+print(results) # 返回dataframe，这种方式可直接使用dataframe操作，推荐
+```
+
+方案二：使用sqlalchemy（对这个不熟练）
+- 以下这种方式，使用pymysql驱动的sqlalchemy的[链接格式](https://docs.sqlalchemy.org/en/13/dialects/mysql.html#module-sqlalchemy.dialects.mysql.pymysql),不需要导入pymysql库
+```
+import pandas as pd
+sql ='SELECT * from table'
+con = 'mysql+pymysql://{username}:{password}@{host}:3306/{db}'.format(username=user,password=password,host=host,db=db)
+results = pd.read_sql(sql,con)
+print(results)
+```
+
+- 以下方式，使用engine
+```
+from sqlalchemy.engine import create_engine
+import pandas as pd
+sql = 'SELECT * from table'
+engine = create_engine('mysql+pymysql://{username}:{password}@{host}:3306/{db}'.format(username=user,password=password,host=host,db=db)')
+results = pd.read_sql(sql,engine)
+print(results)
+```
+
+- 以下方式，使用engine.connect()
+```
+from sqlalchemy.engine import create_engine
+import pandas as pd
+sql = 'SELECT * from table'
+engine = create_engine('mysql+pymysql://{username}:{password}@{host}:3306/{db}'.format(username=user,password=password,host=host,db=db)')
+con = engine.connect() # con.cursor()会报错，AttributeError: 'Connection' object has no attribute 'cursor'
+results = pd.read_sql(sql,con)
+print(results)
+```
+
+- pd.read_sql(sql,con)的参数官方文档说明 `con:SQLAlchemy connectable (engine/connection) or database str URI`
+
+	
 
 
 ## 2020-06-09
