@@ -15,6 +15,12 @@ Like json_extract(), but returns the result value as a string (as opposed to bei
 ```
 - 因此，若要对json字符串的结果进行匹配，需要类型一致。presto有cast函数
 - cast(value AS type)  显式转换一个值的类型。如`SELECT CAST(JSON 'null' AS VARCHAR); -- NULL`
+3. 数据处理逻辑
+- 方式一，presto sql取完数据（未深度处理），由pd.read_sql(sql,connectable)读取为dataframe，再进行深度处理。
+- 方式二，presto sql利用自身函数进行深度处理，再交由python处理presto sql不能处理的部分。
+- 对于200w数据，方式一会查询200W，耗用200w数据查询的时间，占用200w数据的内存，df函数处理也耗内存
+- 对于200w数据，由prestosql 处理成100w，只需要查询100w数据，df再处理时也会比方式一占内存少。
+- 因此，能sql解决的简单处理，由sql完成。
 
 ## 2020-06-10
 1. 总结连接不同的数据库
