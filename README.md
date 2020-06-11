@@ -1,5 +1,11 @@
 # 工作日常
 
+## 2020-06-11
+1. presto sql与hive sql在json字符串函数上有区别，[参考资料](https://www.cnblogs.com/drjava/p/10536922.html)
+- hive sql: `get_json_object(string json_string, string path)` ，其中 string path用法为`$.key`，若有数组，用[0]、[1]...
+- presto sql: 没有该函数，取而代之的函数是`json_extract()`，数组用` json_array_get()`函数。
+- 我们使用的hive是presto库连接的hive服务器，因此不支持hive sql 的语法。
+
 ## 2020-06-10
 1. 总结连接不同的数据库
 - 场景一：在客户端（如Navicat，datagrip，dbeaver，nosqlbooster）连接数据库。
