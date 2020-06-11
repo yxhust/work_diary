@@ -5,6 +5,16 @@
 - hive sql: `get_json_object(string json_string, string path)` ，其中 string path用法为`$.key`，若有数组，用[0]、[1]...
 - presto sql: 没有该函数，取而代之的函数是`json_extract()`，数组用` json_array_get()`函数。
 - 我们使用的hive是presto库连接的hive服务器，因此不支持hive sql 的语法。
+2. presto的函数返回类型并不如眼见的那样,[presto函数参考](https://prestodb.io/docs/current/functions/json.html)
+```
+json_extract(json, json_path) → json
+Evaluates the JSONPath-like expression json_path on json (a string containing JSON) and returns the result as a JSON string
+
+json_extract_scalar(json, json_path) → varchar
+Like json_extract(), but returns the result value as a string (as opposed to being encoded as JSON). The value referenced by json_path must be a scalar (boolean, number or string)
+```
+- 因此，若要对json字符串的结果进行匹配，需要类型一致。presto有cast函数
+- cast(value AS type)  显式转换一个值的类型。如`SELECT CAST(JSON 'null' AS VARCHAR); -- NULL`
 
 ## 2020-06-10
 1. 总结连接不同的数据库
