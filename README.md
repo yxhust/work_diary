@@ -1,5 +1,20 @@
 # 工作日常
 
+## 2020-06-24
+1. 记录下PostgreSQL（简称PG库）首次查询遇到的问题。
+- 写一个SQL `select count(*) from for_spyder.public.questionnaire_record` 报错信息如下：cross-database references are not implemented
+- 根据报错信息，该SQL执行了跨库引用
+- 查看当前database SQL，`select current_database()`，返回结果是postgres，默认数据库。
+- 查看，使用datagrip连接PG库时确实没指定database，于是重新指定database，重新连接。多次尝试，还是出错。
+- 查阅一些相关文档，学习一些PG库基础知识：
+  - database.schema.table 该语法使用表
+  - 简要阐述了database的结构和使用规则。[PG库官方文档](https://www.postgresql.org/docs/7.4/ddl-schemas.html)
+	  ```
+	    A PostgreSQL database cluster contains one or more named databases. Users and groups of users are shared across the entire cluster, but no other data is shared across databases. Any given client connection to the server can access only the data in a single database, the one specified in the connection request.
+	  ``` 
+- 这篇文章https://my.oschina.net/Kenyon/blog/90863 也给予我首次使用PG库的函数的提示。
+- 最终的解决方案竟然是重启datagrip，`重启重启重启`。重启完current_database就切换过来了，刷新没用，刷新没用。
+
 ## 2020-06-23
 1. 周会
 - 职责界限不明显（数据异常排查）
