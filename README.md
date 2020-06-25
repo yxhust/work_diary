@@ -1,5 +1,24 @@
 # 工作日常
 
+## 2020-06-25
+1. 使用psycopg2模块查询pg库 sql
+- 默认参数，查询结果的columns为默认索引0、1、2...
+- pymysql中想查询结果为带有字段的columns，代码如下：
+	```
+	cur = connection.cursor(pymysql.cursors.DictCursor)
+	或
+	connection = pymysql.connect(host='localhost',
+				     user='user',
+				     password='passwd',
+				     db='db',
+				     charset='utf8mb4',
+				     cursorclass=pymysql.cursors.DictCursor)
+	```
+- psycopg2中显然不是这样的，需要额外导入`import psycopg2.extras`，参考资料https://stackoverflow.com/questions/6739355/dictcursor-doesnt-seem-to-work-under-psycopg2 ,具体代码为：
+	```
+	cur = psycopg2.connect(database="xx", user="xx", password="xx", host="xx", port="xx").cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+	```
+
 ## 2020-06-24
 1. 记录下PostgreSQL（简称PG库）首次查询遇到的问题。
 - 写一个SQL `select count(*) from for_spyder.public.questionnaire_record` 报错信息如下：cross-database references are not implemented
