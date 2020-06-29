@@ -1,5 +1,15 @@
 # 工作日常
 
+## 2020-06-29 :sunny::kissing:
+1. 投放环节数据处理 
+   1. jupyter notebook读取PG和MySQL数据，pandas处理，输出csv文件 :smile:
+   2. csv文件呈现形式是，一个用户多个维度特征以多行展开:smirk:，即一对多关系。
+   3. 要取出某个特征的数据很容易，dataframe行列操作即可。但想要特征下钻，如性别为男的用户的学历构成，dataframe里要：找到性别为男的用户，在从这些用户中找出其学历信息。这样的坏处是：处理效率低，代码繁琐。
+   4. 实现特征下钻，需要改变csv文件格式，一个用户一行数据，一行数据包括多个维度，每个维度一列，这需要`行列转化+用户分组聚合`:scream:
+   5. 使用tableau实现，如`max(IF [field_id]='field_9' then [value] else null end)`，类似于max(case when then else end)
+   6. 输出新格式数据，数据透视表是个很好的数据分析工具。:grimacing:
+2. 对于数据文本处理，
+
 ## 2020-06-28
 1. 数据透视表对于小数据量非常好用，[参考资料](https://zhuanlan.zhihu.com/p/36785151)
 - 行，列，值，筛选
