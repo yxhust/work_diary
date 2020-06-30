@@ -1,5 +1,8 @@
 # 工作日常
 
+## 2020-06-30 :stuck_out_tongue_closed_eyes:
+1. 文本计算tf_idf，做层次聚类
+
 ## 2020-06-29 :sunny::kissing:
 1. 投放环节数据处理 
    1. jupyter notebook读取PG和MySQL数据，pandas处理，输出csv文件 :smile:
