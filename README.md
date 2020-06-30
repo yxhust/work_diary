@@ -15,6 +15,18 @@
 - 参考资料1：https://juejin.im/post/5b0f962751882515773af358  
 - 参考资料2：https://amueller.github.io/word_cloud/generated/wordcloud.WordCloud.html#wordcloud.WordCloud
 
+3. sklearn计算df['col']的tfidf
+- sklearn.feature_extraction.text.CountVectorizer()
+	- 功能：统计原始数据的词的频次
+  - 代码：先实例化，再使用fit_transform(data)方法返回document—term matrix。data为可迭代对象，不能包含空值、非str
+- sklearn.feature_exyraction.text.TfidfTransformer()
+	- 功能：
+	- 代码：先实例化，再使用fit_transform(X)方法。X可为fit_transform(data)的输出，`{array-like, sparse matrix, dataframe} of shape (n_samples, n_features)`
+	- 输出：X_newndarray array of shape (n_samples, n_features_new)。与X类似，但值现在为tf-idf值，不再是{0,1}
+- 多行数据样本，所有的词。计算出的tf-idf为n*m的矩阵。每行数据不出现的词的tf-idf为0。
+
+4. 对于sklearn计算的tf-idf，如何层次聚类呢？层次聚类能否实现目标-将凌乱的填空数据统一化？
+
 ## 2020-06-29 :sunny::kissing:
 1. 投放环节数据处理 
    1. jupyter notebook读取PG和MySQL数据，pandas处理，输出csv文件 :smile:
