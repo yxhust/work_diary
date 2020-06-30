@@ -10,7 +10,7 @@
 - jieba.analyse.TFIDF(idf_path=None) 新建 TFIDF 实例，idf_path 为 IDF 频率文件
 - 对于df['col']这种文本，即文本存储在Series里，这种方式不适合。
 
-2. 制作词云
+2. 制作词云:ok_hand:
 - 使用jieba和wordcloud库
 - 参考资料1：https://juejin.im/post/5b0f962751882515773af358  
 - 参考资料2：https://amueller.github.io/word_cloud/generated/wordcloud.WordCloud.html#wordcloud.WordCloud
