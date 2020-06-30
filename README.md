@@ -10,6 +10,11 @@
 - jieba.analyse.TFIDF(idf_path=None) 新建 TFIDF 实例，idf_path 为 IDF 频率文件
 - 对于df['col']这种文本，即文本存储在Series里，这种方式不适合。
 
+2. 制作词云
+- 使用jieba和wordcloud库
+- 参考资料1：https://juejin.im/post/5b0f962751882515773af358  
+- 参考资料2：https://amueller.github.io/word_cloud/generated/wordcloud.WordCloud.html#wordcloud.WordCloud
+
 ## 2020-06-29 :sunny::kissing:
 1. 投放环节数据处理 
    1. jupyter notebook读取PG和MySQL数据，pandas处理，输出csv文件 :smile:
