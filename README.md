@@ -1,7 +1,14 @@
 # 工作日常
 
 ## 2020-06-30 :stuck_out_tongue_closed_eyes:
-1. 文本计算tf_idf，做层次聚类
+1. jieba计算tf_idf，[参考资料](https://github.com/fxsjy/jieba#%E5%9F%BA%E4%BA%8E-tf-idf-%E7%AE%97%E6%B3%95%E7%9A%84%E5%85%B3%E9%94%AE%E8%AF%8D%E6%8A%BD%E5%8F%96)
+- jieba.analyse.extract_tags(sentence, topK=20, withWeight=False, allowPOS=())
+  - sentence 为待提取的文本
+  - topK 为返回几个 TF/IDF 权重最大的关键词，默认值为 20
+  - withWeight 为是否一并返回关键词权重值，默认值为 False
+	- allowPOS 仅包括指定词性的词，默认值为空，即不筛选
+- jieba.analyse.TFIDF(idf_path=None) 新建 TFIDF 实例，idf_path 为 IDF 频率文件
+- 对于df['col']这种文本，即文本存储在Series里，这种方式不适合。
 
 ## 2020-06-29 :sunny::kissing:
 1. 投放环节数据处理 
