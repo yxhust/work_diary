@@ -8,7 +8,7 @@
    4. 实现特征下钻，需要改变csv文件格式，一个用户一行数据，一行数据包括多个维度，每个维度一列，这需要`行列转化+用户分组聚合`:scream:
    5. 使用tableau实现，如`max(IF [field_id]='field_9' then [value] else null end)`，类似于max(case when then else end)
    6. 输出新格式数据，数据透视表是个很好的数据分析工具。:grimacing:
-2. 对于数据文本处理，
+2. 对于数据文本处理，计算tf_idf，层次聚类
 
 ## 2020-06-28
 1. 数据透视表对于小数据量非常好用，[参考资料](https://zhuanlan.zhihu.com/p/36785151)
