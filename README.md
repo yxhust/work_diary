@@ -1,24 +1,7 @@
 # 工作日常
 
-## 2020-07-01 :sunflower:
-1. 七月第一天，过去一个多月github坚持天天更新，已经养成习惯了。七月继续加油，每天进步一点点。
-2. 身体很重要，继续坚持锻炼。
-3. python层次聚类
-  1. 方法一：使用scipy库,linkage()输入为稀疏矩阵或稠密矩阵，输出为(n-1)*4的矩阵，n为样本数量，共n-1次聚合，dendrogram()函数可视化聚类树状图。该方法在我的数据集上报错，因为数据深度超过限制。
-     	```
-	# import scipy
-	# from scipy.cluster.hierarchy import linkage,dendrogram
-	# import matplotlib.pyplot as plt
-	# Z = linkage(tfidf.toarray())
-	# dendrogram(Z)
-	# plt.show()
-     	```
- 2. 方法二：使用sklearn库，[参考资料](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html#sklearn.cluster.AgglomerativeClustering)
-    ```
-    from sklearn.cluster import AgglomerativeClustering
-    c = AgglomerativeClustering(n_clusters=6).fit_predict(tfidf.toarray()) 
-    #TypeError: A sparse matrix was passed, but dense data is required. Use X.toarray() to convert to a dense numpy array
-   ```
+
+
 
 ## 2020-06-30 :stuck_out_tongue_closed_eyes:
 1. jieba计算tf_idf，[参考资料](https://github.com/fxsjy/jieba#%E5%9F%BA%E4%BA%8E-tf-idf-%E7%AE%97%E6%B3%95%E7%9A%84%E5%85%B3%E9%94%AE%E8%AF%8D%E6%8A%BD%E5%8F%96)
@@ -196,13 +179,13 @@
 - presto sql: 没有该函数，取而代之的函数是`json_extract()`，数组用` json_array_get()`函数。
 - 我们使用的hive是presto库连接的hive服务器，因此不支持hive sql 的语法。
 2. presto的函数返回类型并不如眼见的那样,[presto函数参考](https://prestodb.io/docs/current/functions/json.html)
-```
-json_extract(json, json_path) → json
-Evaluates the JSONPath-like expression json_path on json (a string containing JSON) and returns the result as a JSON string
+	```
+	json_extract(json, json_path) → json
+	Evaluates the JSONPath-like expression json_path on json (a string containing JSON) and returns the result as a JSON string
 
-json_extract_scalar(json, json_path) → varchar
-Like json_extract(), but returns the result value as a string (as opposed to being encoded as JSON). The value referenced by json_path must be a scalar (boolean, number or string)
-```
+	json_extract_scalar(json, json_path) → varchar
+	Like json_extract(), but returns the result value as a string (as opposed to being encoded as JSON). The value referenced by json_path must be a scalar (boolean, number or string)
+	```
 - 因此，若要对json字符串的结果进行匹配，需要类型一致。presto有cast函数
 - cast(value AS type)  显式转换一个值的类型。如`SELECT CAST(JSON 'null' AS VARCHAR); -- NULL`
 3. 数据处理逻辑
