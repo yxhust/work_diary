@@ -15,11 +15,11 @@
       ```
      
    2. 方法二：使用sklearn库，[参考资料](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html#sklearn.cluster.AgglomerativeClustering)
-    ```
-    from sklearn.cluster import AgglomerativeClustering
-    c = AgglomerativeClustering(n_clusters=6).fit_predict(tfidf.toarray()) 
-    #TypeError: A sparse matrix was passed, but dense data is required. Use X.toarray() to convert to a dense numpy array
-    ```
+	    ```
+	    from sklearn.cluster import AgglomerativeClustering
+	    c = AgglomerativeClustering(n_clusters=6).fit_predict(tfidf.toarray()) 
+	    #TypeError: A sparse matrix was passed, but dense data is required. Use X.toarray() to convert to a dense numpy array
+	    ```
     3. 原始的职业数据 由用户填空而来，存在大量较短、频次较低的职业数据，仅依靠tf-idf计算可能不行，在计算tf-idf前需要过滤掉仅出现一次的词。
     4. 数据清洗未做好，聚类的结果也不理想。
 
