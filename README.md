@@ -5,19 +5,19 @@
 2. 身体很重要，继续坚持锻炼。
 3. python层次聚类
    1. 方法一：使用scipy库,linkage()输入为稀疏矩阵或稠密矩阵，输出为(n-1)*4的矩阵，n为样本数量，共n-1次聚合，dendrogram()函数可视化聚类树状图。该方法在我的数据集上报错，因为数据深度超过限制。
-       ```
-	import scipy
-	from scipy.cluster.hierarchy import linkage,dendrogram
-	import matplotlib.pyplot as plt
-	Z = linkage(tfidf.toarray())
-	dendrogram(Z)
-	plt.show()
-      ```
+			```
+			import scipy
+			from scipy.cluster.hierarchy import linkage,dendrogram
+			import matplotlib.pyplot as plt
+			Z = linkage(tfidf.toarray())
+			dendrogram(Z)
+			plt.show()
+			```
    2. 方法二：使用sklearn库，[参考资料](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html#sklearn.cluster.AgglomerativeClustering)
 	    ```
 	    from sklearn.cluster import AgglomerativeClustering
 	    c = AgglomerativeClustering(n_clusters=6).fit_predict(tfidf.toarray()) 
-	     #TypeError: A sparse matrix was passed, but dense data is required. Use X.toarray() to convert to a dense numpy array
+	    #TypeError: A sparse matrix was passed, but dense data is required. Use X.toarray() to convert to a dense numpy array
 	    ```
    3. 原始的职业数据 由用户填空而来，存在大量较短、频次较低的职业数据，仅依靠tf-idf计算可能不行，在计算tf-idf前需要过滤掉仅出现一次的词。
    4. 数据清洗未做好，聚类的结果也不理想。
