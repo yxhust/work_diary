@@ -1,5 +1,11 @@
 # 工作日常
 
+## 2020-07-08 :imp:
+1. 使用pandas进行常规处理，`df[(df['col1'==value1])&(df['col2']==value2)]['col3']`取df中满足条件的行的列
+2. 业务复盘会。明确产品定位、产品价值、目标人群后产品化。
+3. 学习数据挖掘理论的ensemble learning，其中bagging的 random forests 、boosting的AdaBoost。
+
+
 ## 2020-07-06 :arrow_up:
 1. 继续完善下钻特征的是否转化分析
 2. 课程内容选择数据的取数（presto sql+pandas）分析
