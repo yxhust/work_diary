@@ -1,7 +1,7 @@
 # 工作日常
 
 ## 2020-07-08 :imp:
-1. 使用pandas进行常规处理，`df[(df['col1'==value1])&(df['col2']==value2)]['col3']`取df中满足条件的行的列
+1. 使用pandas进行常规处理，`df[(df['col1']==value1)&(df['col2']==value2)]['col3']`取df中满足条件的行的列
 2. 业务复盘会。明确产品定位、产品价值、目标人群后产品化。
 3. 学习数据挖掘理论的ensemble learning，其中bagging的 random forests 、boosting的AdaBoost。
 
@@ -9,7 +9,7 @@
 ## 2020-07-06 :arrow_up:
 1. 继续完善下钻特征的是否转化分析
 2. 课程内容选择数据的取数（presto sql+pandas）分析
-3. 学习推荐算法相关，有tf-if、latent semantic analysis（term-document matrix 分解）、page rank、collaborative filtering(基于用户，基于项目，基于模型)。`当前只停留在了解，还未代码实操`
+3. 学习推荐算法相关，有tf-idf、latent semantic analysis（term-document matrix 分解）、page rank、collaborative filtering(基于用户，基于项目，基于模型)。`当前只停留在了解，还未代码实操`
 
 ## 2020-07-05 :yum:
 1. 学习了聚类算法，基于密度聚类，层次聚类（包括簇间距离的计算方式）
