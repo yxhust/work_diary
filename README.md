@@ -4,7 +4,7 @@
 1. 完成职业的平均获客成本
 - 基本逻辑：使用职业人群的手机号，匹配来源于哪个公众号，再去匹配公众号的投放成本，计算职业人群的平均获客成本
 - 问题：部分公众号会在不同日期投放多次，仅通过公众号匹配结果会不对，还需要结合日期
-- pandas常用匹配方法：pd.merge()  pd.join()  df1.merge(df2) 这些都是值相等字段匹配。现在的场景是：在用户填写日期之前的投放日期的公众号才满足匹配条件，类似SQL中的不等号联结条件
+- pandas常用匹配方法：pd.merge()  df.join()  df1.merge(df2) 这些都是值相等字段匹配。现在的场景是：在用户填写日期之前的投放日期的公众号才满足匹配条件，类似SQL中的不等号联结条件
 - 经过查询，使用[pd.merge_asof()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.merge_asof.html#pandas.merge_asof)
   - pandas.merge_asof(left, right, on=None, left_on=None, right_on=None, left_index: bool = False, right_index: bool = False, by=None, left_by=None, right_by=None, suffixes='_x', '_y', tolerance=None, allow_exact_matches: bool = True, direction: str = 'backward') 
   - 特点：只有左联结，且联结key必须是排好序的
