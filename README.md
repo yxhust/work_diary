@@ -14,6 +14,12 @@
   	- A “forward” search selects the first row in the right DataFrame whose ‘on’ key is greater than or equal to the left’s key.
         - A “nearest” search selects the row in the right DataFrame whose ‘on’ key is closest in absolute distance to the left’s key.
   - allow_exact_matchesbool, default True。True允许on的左右字段值相等，False,不含等于情况。
+  
+2. 数据挖掘算法 evolution algorithm，b站视频粗略的过完了一遍。`明天开始去代码实践`
+- genetic algorithm
+- genetic program 树状结构
+- crossover,mutution,selection，fitness function,evolvuable things
+
 
 ## 2020-07-08 :imp:
 1. 使用pandas进行常规处理，`df[(df['col1']==value1)&(df['col2']==value2)]['col3']`取df中满足条件的行的列
