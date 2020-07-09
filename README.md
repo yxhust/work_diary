@@ -6,7 +6,8 @@
 - gbk编码是什么？ 用于简体中文
 - 解决方案：打开文件对象制定encoding参数，而不是使用windows默认的编码方式
 - 参考资料：https://blog.csdn.net/jim7424994/article/details/22675759  https://www.cnblogs.com/cwp-bg/p/7835434.html
-
+2. 字符编码知识
+- [ascii,unicode,utf-8](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
 
 ## 2020-07-08 :bulb:
 1. 完成职业的平均获客成本
