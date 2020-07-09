@@ -1,6 +1,6 @@
 # 工作日常
 
-## 2020-07-09
+## 2020-07-09 :beginner:
 1. 使用f.write(i)方法写入文件时报错`'gbk' codec can't encode character '\U0001f4b0' in position 5: illegal multibyte sequence`
 - 什么是encode？decode呢？ https://segmentfault.com/a/1190000015788943 （这篇文档是python2的，完全不适用现在的python3，得亏钻研了，要不会学习到错的知识）
 - gbk编码是什么？ 用于简体中文
@@ -12,6 +12,15 @@
 - 现在只考虑python3中:
   - str.encode(encoding='UTF-8',errors='strict')：将字符串str按UTF-8规则编码，返回bytes对象
   - bytes.decode(encoding='UTF-8',errors='strict')：将bytes对象按UTF-8规则译码（解码），返回str对象
+3. 回到报错信息，写入文件时，报错gbk不能编码，涉及到了`文件编码`
+- [资料1](https://blog.csdn.net/jim7424994/article/details/22675759) 的分析思路特别好，但部分知识为python2，已过时。
+- [资料2](https://www.cnblogs.com/cwp-bg/p/7835434.html) ，文中分析后结论是：这是在文件写入的时候报的错误，而windows打开文件默认是以“gbk“编码的。
+- 写入文件的具体操作是什么，编码解码是怎么进行的？这里面的学问很深啊。暂不去深究，`记住，报错涉及到编码，记得open文件时带上encoding参数`
+4. 文本处理方式
+- 关键词提取，jieba
+- 词云，wordcloud
+- 语义分析，LSA，fasttext（明天接着去深入）
+
 
 ## 2020-07-08 :bulb:
 1. 完成职业的平均获客成本
