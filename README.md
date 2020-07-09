@@ -8,6 +8,10 @@
 - 参考资料：https://blog.csdn.net/jim7424994/article/details/22675759  https://www.cnblogs.com/cwp-bg/p/7835434.html
 2. 字符编码知识
 - [ascii,unicode,utf-8](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
+- encode() 和 decode()在python2和python3中是相反的，查阅资料注意辨别。因为在python2中有unicode类型，[参考资料](https://www.cnblogs.com/evening/archive/2012/04/19/2457440.html)
+- 现在只考虑python3中:
+  - str.encode(encoding='UTF-8',errors='strict')：将字符串str按UTF-8规则编码，返回bytes对象
+  - bytes.decode(encoding='UTF-8',errors='strict')：将bytes对象按UTF-8规则译码（解码），返回str对象
 
 ## 2020-07-08 :bulb:
 1. 完成职业的平均获客成本
