@@ -19,6 +19,7 @@
 - genetic algorithm
 - genetic program 树状结构
 - crossover,mutution,selection，fitness function,evolvuable things
+- 给我最大的震撼是：`适者生存，而非强者生存`
 
 
 ## 2020-07-08 :imp:
