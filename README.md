@@ -1,6 +1,14 @@
 # 工作日常
 
-## 2020-07-09 :bulb:
+## 2020-07-09
+1. 使用f.write(i)方法写入文件时报错`'gbk' codec can't encode character '\U0001f4b0' in position 5: illegal multibyte sequence`
+- 什么是encode？decode呢？ https://segmentfault.com/a/1190000015788943
+- gbk编码是什么？ 用于简体中文
+- 解决方案：打开文件对象制定encoding参数，而不是使用windows默认的编码方式
+- 参考资料：https://blog.csdn.net/jim7424994/article/details/22675759  https://www.cnblogs.com/cwp-bg/p/7835434.html
+
+
+## 2020-07-08 :bulb:
 1. 完成职业的平均获客成本
 - 基本逻辑：使用职业人群的手机号，匹配来源于哪个公众号，再去匹配公众号的投放成本，计算职业人群的平均获客成本
 - 问题：部分公众号会在不同日期投放多次，仅通过公众号匹配结果会不对，还需要结合日期
@@ -22,7 +30,7 @@
 - 给我最大的震撼是：`适者生存，而非强者生存`
 
 
-## 2020-07-08 :imp:
+## 2020-07-07 :imp:
 1. 使用pandas进行常规处理，`df[(df['col1']==value1)&(df['col2']==value2)]['col3']`取df中满足条件的行的列
 2. 业务复盘会。明确产品定位、产品价值、目标人群后产品化。
 3. 学习数据挖掘理论的ensemble learning，其中bagging的 random forests 、boosting的AdaBoost。
