@@ -2,7 +2,7 @@
 
 ## 2020-07-09
 1. 使用f.write(i)方法写入文件时报错`'gbk' codec can't encode character '\U0001f4b0' in position 5: illegal multibyte sequence`
-- 什么是encode？decode呢？ https://segmentfault.com/a/1190000015788943
+- 什么是encode？decode呢？ https://segmentfault.com/a/1190000015788943 （这篇文档是python2的，完全不适用现在的python3，得亏钻研了，要不会学习到错的知识）
 - gbk编码是什么？ 用于简体中文
 - 解决方案：打开文件对象制定encoding参数，而不是使用windows默认的编码方式
 - 参考资料：https://blog.csdn.net/jim7424994/article/details/22675759  https://www.cnblogs.com/cwp-bg/p/7835434.html
