@@ -5,9 +5,9 @@
 - 什么是encode？decode呢？ https://segmentfault.com/a/1190000015788943 （这篇文档是python2的，完全不适用现在的python3，得亏钻研了，要不会学习到错的知识）
 - gbk编码是什么？ 用于简体中文
 - 解决方案：打开文件对象制定encoding参数，而不是使用windows默认的编码方式
-- 参考资料：https://blog.csdn.net/jim7424994/article/details/22675759  https://www.cnblogs.com/cwp-bg/p/7835434.html
+
 2. 字符编码知识
-- [ascii,unicode,utf-8](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
+- [ascii,unicode,utf-8 通俗易懂的资料](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
 - encode() 和 decode()在python2和python3中是相反的，查阅资料注意辨别。因为在python2中有unicode类型，[参考资料](https://www.cnblogs.com/evening/archive/2012/04/19/2457440.html)
 - 现在只考虑python3中:
   - str.encode(encoding='UTF-8',errors='strict')：将字符串str按UTF-8规则编码，返回bytes对象
