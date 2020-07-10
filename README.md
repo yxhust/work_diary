@@ -12,6 +12,18 @@
 - 总结原因，whl文件要与python版本一致，不是向下兼容，我的python是3.7，下载的3.6和3.8都会报错。
 - 安装fasttext最佳资料： https://blog.csdn.net/weixin_44388679/article/details/88937700
 
+2. fasttext使用总结
+- [无监督训练:word representation](https://fasttext.cc/docs/en/unsupervised-tutorial.html) ：从文本中训练 词向量
+- [有监督训练:text classification](https://fasttext.cc/docs/en/supervised-tutorial.html)
+	```
+	With a few steps, we were able to go from a precision at one of 12.4% to 59.9%. Important steps included:
+
+	preprocessing the data ;
+	changing the number of epochs (using the option -epoch, standard range [5 - 50]) ;
+	changing the learning rate (using the option -lr, standard range [0.1 - 1.0]) ;
+	using word n-grams (using the option -wordNgrams, standard range [1 - 5]).
+	```
+
 ## 2020-07-09 :beginner:
 1. 使用f.write(i)方法写入文件时报错`'gbk' codec can't encode character '\U0001f4b0' in position 5: illegal multibyte sequence`
 - 什么是encode？decode呢？ https://segmentfault.com/a/1190000015788943 （这篇文档是python2的，完全不适用现在的python3，得亏钻研了，要不会学习到错的知识）
