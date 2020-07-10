@@ -1,5 +1,17 @@
 # 工作日常
 
+## 2020-07-10 
+1. 记录安装fasttext填坑之路
+- 根据[fasttext官方文档](https://github.com/facebookresearch/fastText/tree/master/python) 安装，报错：error: Microsoft Visual C++ 14.0 is required.
+- 查询，根据[github issue资料](https://github.com/benfred/implicit/issues/76) ，需要安装vs，其余的特定包也不一定需要安装vs，但fasttext必须得安装vs
+- 根据报错信息的vs网址，下载，看到安装c++生成工具，5G大小，选择放弃，寻求替代方案。
+- 替代方案，下载离线whl文件，pip安装。[安装fasttext](https://blog.csdn.net/weixin_44388679/article/details/88937700)
+- [python第三方安装包](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pandas)
+- 下载whl文件很轻松，但pip安装报错。ERROR: fasttext-0.9.2-cp36-none-win32.whl is not a supported wheel on this platform.
+- 开始了解whl知识，排查原因，最后的解决方案是:`pip install E:\Anaconda3\Anaconda3\Lib\site-packages\fasttext-0.9.2-cp37-cp37m-win_amd64.whl` 
+- 总结原因，whl文件要与python版本一致，不是向下兼容，我的python是3.7，下载的3.6和3.8都会报错。
+- 安装fasttext最佳资料： https://blog.csdn.net/weixin_44388679/article/details/88937700
+
 ## 2020-07-09 :beginner:
 1. 使用f.write(i)方法写入文件时报错`'gbk' codec can't encode character '\U0001f4b0' in position 5: illegal multibyte sequence`
 - 什么是encode？decode呢？ https://segmentfault.com/a/1190000015788943 （这篇文档是python2的，完全不适用现在的python3，得亏钻研了，要不会学习到错的知识）
