@@ -1,5 +1,9 @@
 # 工作日常
 
+## 2020-07-11 :diamond_shape_with_a_dot_inside:
+1. 睡够了
+2. 整理过去一周的浏览器未关闭网页，如开窗函数、python文本分析文档、停用词、制作词云步骤整理等等，主要是梳理工作。
+
 ## 2020-07-10 
 1. 记录安装fasttext填坑之路
 - 根据[fasttext官方文档](https://github.com/facebookresearch/fastText/tree/master/python) 安装，报错：error: Microsoft Visual C++ 14.0 is required.
