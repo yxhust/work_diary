@@ -1,5 +1,24 @@
 # 工作日常
 
+## 2020-07-14 :pushpin:
+1. wordcloud.WordCloud()类的源码分析
+	```
+	def generate_from_frequencies(self, frequencies, max_font_size=None):  # noqa: C901 使用词及词频字典，返回self
+	def process_text(self, text):   将文本分成词，返回词及词频字典
+	def generate_from_text(self, text):  使用process_text处理text，将其输出再使用generate_from_frequencies
+	def generate(self, text):    等同于def generate_from_text(self, text):        
+	```
+- 使用generate()方法，会将文本分词。文本也可以是jieba.cut（）的结果。
+- 对于关键词文本的词云生成方法，要关键词文本按关键词频率降序排列，这样的生成词云是ok的。
+2. 使用fasttext.train_unsupervised(path)训练文本时，结果仅为一个词汇的情况。经过排查：
+- [In order to compute word vectors, you need a large text corpus.](https://fasttext.cc/docs/en/unsupervised-tutorial.html#getting-the-data)
+- 换一个更大的文本语料库，同样的代码，训练结果可观。
+3. 正则表达式替换
+-  `pay_df.apply(lambda x:re.sub(string=x,pattern=r'[\\r\\n没有无理想\s]',repl=''))`
+- 替换\r \n 及 所有中文字符
+
+
+
 ## 2020-07-13 :beginner:
 1. 一直觉得7月13是什么日子，但记不得，查历史上的今天，有：
 - 国际奥委会于这一天宣布2008北京举办奥运会
