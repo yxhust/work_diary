@@ -41,7 +41,7 @@
 3. 业务仪表盘
 - 更多交互式的操作本次未使用，如分层下钻、参数等。
 - 部分指标还可以优化。
-！[业务仪表盘](https://github.com/yxhust/work_diary/blob/master/Snipaste_2020-07-16_19-04-38.png)
+  ![业务仪表盘](https://github.com/yxhust/work_diary/blob/master/Snipaste_2020-07-16_19-04-38.png)
 
 
 
