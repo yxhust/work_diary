@@ -38,6 +38,11 @@
 	- 目标字段target。 `if max([col2])-max([关卡数字])=1 then 'L'+STR(MAX([关卡数字]))+'已完课' else 'L'+STR(MAX([关卡数字]))+'未完课' end`
 	- max()函数，不只是用在最外层，上述计算target字段也是聚合。
 
+3. 业务仪表盘
+- 更多交互式的操作本次未使用，如分层下钻、参数等。
+- 部分指标还可以优化。
+！[业务仪表盘](https://github.com/yxhust/work_diary/blob/master/Snipaste_2020-07-16_19-04-38.png)
+
 
 
 
