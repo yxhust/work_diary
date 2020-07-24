@@ -5,6 +5,9 @@
 2. 完成业务用户内容行为数据的提取，简要分析，尚未完成
 - dataframe.groupby()
 - series.value_counts(normalize=True)
+3. Tableau连接hive和mysql两个数据源制作样例看板
+-  SQL类型转换：cast(user_id as varchar) 
+-  一个SQL里不能跨数据源，但可以将两个数据源的SQL在tableau中连接。
 
 ## 2020-07-23 :hammer:
 1. 梳理所负责业务指标，给数仓工程师开发DM层。
