@@ -1,5 +1,11 @@
 # 工作日常
 
+## 2020-07-24 :waxing_crescent_moon:
+1. 完成业务指标梳理初版，后续根据数仓工程师反馈修改
+2. 完成业务用户内容行为数据的提取，简要分析，尚未完成
+- dataframe.groupby()
+- series.value_counts(normalize=True)
+
 ## 2020-07-23 :hammer:
 1. 梳理所负责业务指标，给数仓工程师开发DM层。
 - 包括市场指标、服务指标、学习指标、社群指标等
