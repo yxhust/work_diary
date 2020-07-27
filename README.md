@@ -1,5 +1,11 @@
 # 工作日常
 
+## 2020-07-27 :clock1:
+1. 完成Tableau业务看板
+- hive和mysql数据源，在tableau中联结
+2. 周一日常两个会议
+
+
 ## 2020-07-25 & 26 :alarm_clock:
 1. update resume
 2. 整理过去的笔记本，按时间编号，现在到了`No.07`
