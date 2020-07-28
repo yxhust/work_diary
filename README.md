@@ -1,5 +1,14 @@
 # 工作日常
 
+## 2020-07-28 :stars:
+1. 完成tableau看板制作。
+- MongoDB数据同步到hive，presto连接hive，presto SQL完成数据简单清洗提取
+- 使用lead() lag()开窗函数，取当前记录前后n行，[参考资料](https://blog.csdn.net/kent7306/article/details/50441967)
+- 开窗函数比自联结更高效
+- presto SQL 开窗函数：https://prestodb.io/docs/current/functions/window.html
+- presto计算时间差，字符串解析为timestamp类型。 `date_diff('second', date_parse(temp1.triggered_at, '%Y-%m-%d %H:%i:%s'), date_parse(temp1.next_t, '%Y-%m-%d %H:%i:%s')) `
+- Tableau在一个仪表盘中可以添加多个数据源，利用多个数据源可以完成不同SQL的相同主题看板。
+
 ## 2020-07-27 :clock1:
 1. 完成Tableau业务看板
 - hive和mysql数据源，在tableau中联结
