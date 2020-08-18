@@ -12,11 +12,12 @@
 - 文本预处理一：中文jieba分词，查寻停用词文件(cn_stopwords.txt , baidu_stopwords.txt)合并，去除业务特定词
 - 文本预处理二：标签格式符合fasttext形式，带有__label__前缀
 - 文本预处理三：将两列的dataframe输出为txt文本，标签和文本以行写入。
-**过程学习os.walk(dir_path, topdown=True)**  
 
-**pycharm的代码目录管理，使用Linux的'../path'表示path的上级目录。windows和mac两种操作系统的文件目录形式不一样，前者是\，后者是/**
+- **学习os.walk(dir_path, topdown=True)**  
 
-**停用词代码处理`if not(word.strip() in stop_words_list) and len(word.strip())>1:`，其中涉及列表与字符串序列的转换，即str.split(' '),' '.join(list)**
+- **pycharm的代码目录管理，使用Linux的'../path'表示path的上级目录。windows和mac两种操作系统的文件目录形式不一样，前者是\，后者是/**
+
+- **停用词代码处理`if not(word.strip() in stop_words_list) and len(word.strip())>1:`，其中涉及列表与字符串序列的转换，即str.split(' '),' '.join(list)**
 
 
 ## 2020-08-17 :crying_cat_face:
