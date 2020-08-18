@@ -3,6 +3,21 @@
 ## 2020-08-19 :pouting_cat:
 
 ## 2020-08-18 :joy_cat:
+1. 数据组周会
+- 埋点：事件+属性，属性包括属性名、属性值、属性类型、属性备注。
+- 一个页面对应多个事件，一个事件对应多个属性。
+- 后端埋点：落地页支付、关注公众号。
+- [神策代码埋点与可视化全埋点分别的适用场景](https://manual.sensorsdata.cn/sa/latest/%E4%BB%A3%E7%A0%81%E5%9F%8B%E7%82%B9%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A8%E5%9F%8B%E7%82%B9%E5%88%86%E5%88%AB%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-7547408.html)
+2. 文本的有监督训练
+- 文本预处理一：中文jieba分词，查寻停用词文件(cn_stopwords.txt , baidu_stopwords.txt)合并，去除业务特定词
+- 文本预处理二：标签格式符合fasttext形式，带有__label__前缀
+- 文本预处理三：将两列的dataframe输出为txt文本，标签和文本以行写入。
+**过程学习os.walk(dir_path, topdown=True)**  
+
+**pycharm的代码目录管理，使用Linux的'../path'表示path的上级目录。windows和mac两种操作系统的文件目录形式不一样，前者是\，后者是/**
+
+**停用词代码处理`if not(word.strip() in stop_words_list) and len(word.strip())>1:`，其中涉及列表与字符串序列的转换，即str.split(' '),' '.join(list)**
+
 
 ## 2020-08-17 :crying_cat_face:
 1. 今天是2020年的第34周周一。2020余额不足一半了。
