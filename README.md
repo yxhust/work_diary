@@ -1,5 +1,11 @@
 # 工作日常
 
+## 2020-08-21 
+1. 继续昨天的业务数据提取
+- SQL完成中位数：
+  - 使用row_number() over (partition by col order by col2)
+  - 组内数量的统计，用于计算组内中位数。ceil(count(*)/2),floor(count(*)/2)+1
+
 ## 2020-08-20 :feet:
 1. 构建业务的用户分层
 - 基于用户画像的相关知识
