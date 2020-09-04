@@ -1,5 +1,18 @@
 # 工作日常
 
+## 2020-09-04 :gift:
+1. amazing day,KEEP GOING!
+2. 完成用户输入数据仪表盘迭代
+- 多选题与单选题存储结构不同，修改presto SQL
+- 新增多选题，完成tableau看板
+3. 周会
+- 稍微了解spark machine learning library，对比python scikit learn
+- 学习其余同事tableau看板所用的技能
+4. 看了b站视频
+- 影视：谍影重重、演员身份的赵本山、演员身份的张学友
+- 美食：滇西小哥
+- 健身：呆木头
+
 ## 2020-09-03 :raising_hand:
 1. 完成用户分层及运营策略仪表盘
 - 昨天主要描述了两个问题，我采取的应对是：
