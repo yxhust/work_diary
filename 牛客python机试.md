@@ -1,10 +1,14 @@
 ## Q1:计算单词长度
+```
 题目描述：计算字符串最后一个单词的长度，单词以空格隔开。
 
 输入描述：一行字符串，非空，长度小于5000。
 
 输出描述：整数N，最后一个单词的长度。
+```
 
+以下为学习后的代码，说明：
+1. str.strip()方法参数为空，默认的是空白符。
 ```
 def get_len():
     input_str = input()
@@ -24,6 +28,9 @@ print(get_len())
 输出描述:输出输入字符串中含有该字符的个数。
 ```
 
+以下我写的代，说明：
+1. 遍历计数
+2. 对第二行字符没做判断
 ```
 def f():
     first_row = input()
@@ -35,8 +42,10 @@ def f():
     return count 
 print(f())
 ```
-我写的代码：遍历计数；且对第二行字符没做判断
 
+优秀代码：
+1. 对第二行字符做判断
+2. 计算字符个数，使用split函数，拆分后的长度-1来计算，而非遍历
 ```
 def ge_num():
     fir_line = input()
@@ -47,8 +56,9 @@ def ge_num():
     return leng
 print(ge_num())
 ```
-优秀代码：对第二行字符做判断；计算字符个数，使用split函数，而非遍历
 
+以下是优秀代码2，说明：
+1. 使用a.count(b)来统计a中b出现的次数
 ```
 def ge_num():
     fir_line = input()
@@ -59,7 +69,7 @@ def ge_num():
     return leng
 print(ge_num())
 ```
-改进代码：使用a.count(b)来统计a中b出现的次数
+
 
 
 ### Q3 输入随机数
@@ -77,7 +87,9 @@ print(ge_num())
 3. list.sort()只适合列表方法，sorted(iterable)适合所有的可迭代对象
 4. 该代码没通过测试用例，但逻辑无问题
 5. 两个input()函数很有意思，值得反复品味
-6. 使用try...except...中断while循环。当不输入即int(空)时，try捕获异常，进入except语句，跳出while循坏。**`while try except 可以在无输入时结束程序`**
+6. 使用try...except...中断while循环。当不输入即int(空)时，try捕获异常，进入except语句，跳出while循坏。
+
+**`while try except 可以在无输入时结束程序`**
 ```
 def rand_num():
     final_data = list()
