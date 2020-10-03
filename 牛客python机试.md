@@ -138,6 +138,62 @@ while True:
 输出该数值的十进制字符串。
 ```
 
+经学习后，我写的代码如下:
+1. 由于牛客网对输入输出要求很严格，因此不要类似print('exception')这种
+2. 多行输入，每次输入都输出结果，因此，需要添加`while True: try： except：break`结构
+3. 对于可迭代序列，遍历索引，遍历值，两者完全不同
+```
+# while True:
+#     try:
+#         number = input()
+#         n = len(number)
+#         dic = {'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'A':10,'B':11,'C':12,'D':13,'E':14,'F':15}
+#         final = 0
+#         for i in range(2,n):
+#             final += dic[number[i]]*(16**(n-i-1))
+#         print(final)
+#     except:
+#         break
+
+def hex_to_decimal():
+    while True:
+        try:
+            hex_str = input()
+        
+            # 十六进制的A~F需要映射到数字
+            hex_dic = {'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'A':10,
+                       'B':11,'C':12,'D':13,'E':14,'F':15}
+            length = len(hex_str)
+            dec_num = 0
+            # 逐位累加
+            for index in range(2,length):
+                # 使用字符串索引，
+                dec_num += hex_dic.get(hex_str[index])*(16**(length-1-index))
+            print(dec_num)
+        except:
+#             print('exception')
+            break
+
+if __name__ == '__main__':
+    hex_to_decimal()
+```
+
+4. 十六进制值需要映射，以下代码提供了另一种思路，倒序遍历十六进制数
+```
+s=input()
+dic_map={'A':10,'B':11,'C':12,'D':13,'E':14,'F':15}
+count=0
+k=0
+for i in s[:1:-1]:
+    if i.isdigit()==True:
+        count+=int(i)*(16**k)
+        k+=1
+    else:
+        count+=dic_map[i]*(16**k)
+        k+=1
+print(count)
+```
+
 
 
 
