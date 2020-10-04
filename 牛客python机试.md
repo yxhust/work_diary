@@ -320,7 +320,38 @@ for i in range(2, a // 2 + 1):
 print(" ".join(map(str, res)) + " " if res else str(a) + " ")
 ```
 
-## Q8：
+## Q8：合并表记录
+```
+题目描述
+数据表记录包含表索引和数值（int范围的整数），请对表索引相同的记录进行合并，即将相同索引的数值进行求和运算，输出按照key值升序进行输出。
+
+输入描述:
+先输入键值对的个数
+然后输入成对的index和value值，以空格隔开
+
+输出描述:
+输出合并后的键值对（多行）
+```
+
+我的代码：
+1. 相同键的值相加与字典计数一样，区别在于本例是+value 而非+1
+2. sorted(iterable)
+```python
+def dic_comb():
+    n = int(input())
+    dic = dict()
+    for i in range(n):
+        string = input()
+        key, value = int(string.split(' ')[0]), int(string.split(' ')[1])
+        # dic[key] += dic.get(key, value)
+        # 计算加法时，不能使用+=，因为初始dic[key]会报错。
+        # dic[key] = dic.get(key, value)+value，语法正确，但加出来的值完全不对
+        dic[key] = dic.get(key,0)+value  
+    # 输出合并后的键值对
+    for k in sorted(dic.keys()):
+        print(k, dic[k])
+```
+
 
 
 
