@@ -125,7 +125,53 @@ while True:
 
 ## Q4: 字符串分隔
 ```
+题目描述
+•连续输入字符串，请按长度为8拆分每个字符串后输出到新的字符串数组；
+•长度不是8整数倍的字符串请在后面补数字0，空字符串不处理。
+输入描述:
+连续输入字符串(输入2次,每个字符串长度小于100)
 
+输出描述:
+输出到长度为8的新字符串数组
+```
+
+我的代码，已通过测试用例：
+1. 自定义函数，以字符串是否是8的倍数来做区分；当字符串不为8的倍数，添加若干个0至长度为8，过程中使用字符串索引和字符串拼接
+2. 输入两次，调用两次函数即可
+```
+def get_str():
+    ori_str = input()
+    n = len(ori_str)
+    if n%8 == 0:
+        for ind in range(n//8):
+            print(ori_str[8*ind:(8*ind+8)])
+    else:
+        for ind in range(n//8):
+            print(ori_str[8*ind:(8*ind+8)])
+        last_part_ind = n%8
+        print(ori_str[(-1)*last_part_ind::1]+str(0)*(8-last_part_ind))
+        
+get_str()
+get_str()
+```
+
+
+优秀代码：
+1. 该代码特点在于：不区分字符串是否是8的倍数，而是根据实际情况酌情补0至字符串为8的倍数，值得学习
+2. `line += "0" * (8 - left)`修改字符串
+
+```
+def chstr(line):
+    left = len(line)%8
+    if left != 0:
+        line += "0" * (8 - left)
+    for i in range(len(line) // 8):
+        print(line[i*8:(i+1)*8])
+
+a=input()
+chstr(a)
+b=input()
+chstr(b)
 ```
 
 
