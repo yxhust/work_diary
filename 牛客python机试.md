@@ -482,11 +482,41 @@ for i in value_list:
     print(list(a.keys())[list(a.values()).index(i)])
 ```
 
-5. 字典生成式
+5. 使用字典生成式由value查找key。**若出现value相同的情况，该方法就不行。如a = {'b':65,'ac':65,'d':98},temp是{65: 'ac', 98: 'd'}**
 ```python 
 a = {'b':65,'ac':23,'d':98}
-res = {v:k for k,v in a.items()}
-print(res)
+value_list = [value for value in a.values()]
+value_list.sort()
+# 互换k,v的字典
+temp = {v:k for k,v in a.items()}
+print(temp)
+for i in value_list:
+    print(temp[i])
 ```
+
+## Q12：二进制1的个数
+```
+题目描述
+输入一个int型的正整数，计算出该int型数据在内存中存储时1的个数。
+
+输入描述:
+ 输入一个整数（int类型）
+
+输出描述:
+ 这个数转换成2进制后，输出1的个数
+ ```
+ 
+ 我的代码：
+ 1. 对于str，也可以直接使用.count('1')
+ 2. bin('3')，返回'0b11'，是否取[2:]对1的计数没影响
+ 3. 讨论区看到一个计数思路，二进制将0全部替换为空字符串，计算替代后的字符串的长度
+ ```python
+ n = int(input())
+charlist = list(bin(n)[2:])
+print(charlist.count('1'))
+ ```
+ 
+ ## Q13：
+ 
 
 
