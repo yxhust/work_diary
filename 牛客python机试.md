@@ -384,6 +384,109 @@ for i in n[::-1]:
 print(res)
 ```
 
+## Q10：
+```
+题目描述
+将一个英文语句以单词为单位逆序排放。例如“I am a boy”，逆序排放后为“boy a am I”
+所有单词之间用一个空格隔开，语句中除了英文字母外，不再包含其他字符
 
+输入描述:
+将一个英文语句以单词为单位逆序排放。
+
+输出描述:
+得到逆序的句子
+```
+
+我的代码，由于想一行代码解决，使用list.reverse()，结果并不了解reverse()方法，导致错误代码
+```python
+# 错误代码1：list.reverse()并不会返回新的列表
+# temp = input().split(' ').reverse()
+# print(' '.join(temp))
+
+# 错误代码2：list.reverse()并不会返回
+# temp = input().split(' ')
+# print(' '.join(temp.reverse()))
+
+temp = input().split(' ')
+temp.reverse()  # 直接修改temp列表
+print(' '.join(temp))
+```
+
+若不使用reverse()呢?对于列表a，a[::1] 或a[:] 或a[::] 都是正序切片取所有元素，a[::-1]逆序取所有元素
+```python
+print(' '.join(input().split(' ')[::-1]))
+```
+
+## Q11:
+```
+题目描述
+给定n个字符串，请对n个字符串按照字典序排列。
+输入描述:
+输入第一行为一个正整数n(1≤n≤1000),下面n行为n个字符串(字符串长度≤100),字符串中只含有大小写字母。
+输出描述:
+数据输出n行，输出结果为按照字典序排列的字符串。
+```
+
+我的代码
+1. 最初的思路是，将输入的字符串计算所有字符ASCII码和，赋值为weight，按和排序这些字符串。但写到一半，发现问题：'ab'和'ba'的weight一样，这种思路排序失败
+2. sorted()直接实现排序，按行输出即可
+```python
+# n = int(input())
+# dic = dict()
+# for i in range(n):
+#     str_i = input()
+#     str_i = str_i.lower()
+#     weight = 0
+#     for char in str_i:
+#         weight += ord(char)
+#     dic[str_i] = weight
+# # 按weight排序dic
+# for key,value in dic.items():
+    
+n = int(input())
+str_list = [input() for i in range(n)]
+for i in sorted(str_list):
+    print(i)
+```
+3. 虽然最初计算weight的思路不行，但如何完成根据值value来排序key呢？
+```python
+# 思路1：将weight设为key，只限于key不相同
+b = {65:'b',23:'ac',98:'d'}
+print(sorted(b))
+for i in sorted(b):
+    print(b[i])
+
+# 思路2：将weight设为value
+a = {'b':65,'ac':23,'d':98}
+value_list = [value for value in a.values()]
+value_list.sort()
+def get_key(dic,value):
+    for k,v in dic.items():
+        if v == value:
+            return k
+    # return [k for k,v in dic.items() if v==value]
+for i in value_list:
+    # 如何从字典a中根据值i找出键key
+    temp =get_key(a,i)
+    print(temp)
+```
+4. 思路2的另一种代码。
+   - `list(a.values()).index(i)`是列表value，找出特别value对应的列表索引，简记为ind
+   - `list(a.keys())[ind]`是列表key，取出索引ind的key
+   - 列表化，从key、value两个列表并进，利用key-value对索引一样来操作，很是精巧。使用list.index()方法，
+```python
+a = {'b':65,'ac':23,'d':98}
+value_list = [value for value in a.values()]
+value_list.sort()
+for i in value_list:
+    print(list(a.keys())[list(a.values()).index(i)])
+```
+
+5. 字典生成式
+```python 
+a = {'b':65,'ac':23,'d':98}
+res = {v:k for k,v in a.items()}
+print(res)
+```
 
 
