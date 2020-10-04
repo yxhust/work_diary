@@ -309,8 +309,9 @@ print(round(float(input())+0.001))
   - 输出符合要求格式
 2. 质因子一定从2开始，最多到输入数一半
   - 当输入数为质数时，要单独输出结果
+3. `" ".join(map(str, res)) + " " if res else str(a) + " "`  这种代码还是很不习惯，得多熟练
 
-```
+```python
 a, res = int(input()), []
 for i in range(2, a // 2 + 1):
     while a % i == 0:
@@ -318,6 +319,8 @@ for i in range(2, a // 2 + 1):
         res.append(i)
 print(" ".join(map(str, res)) + " " if res else str(a) + " ")
 ```
+
+## Q8：
 
 
 
