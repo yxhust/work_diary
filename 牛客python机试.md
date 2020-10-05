@@ -648,7 +648,60 @@ def position_cal():
 position_cal()
 ```
 
-4. 讨论区优秀代码：
+4. 讨论区优秀代码，优秀之处在于：
+- 遍历一次坐标列表
+- str.isdigit()只有全为数字且不为空字符串才返回True，''.isdigit()返回False。因此`i[1:].isdigit()`若为True则表明至少有一个数字
+- 输出特定格式，使用str.format()方法，也可使用print("%s,%s"%(cd[0],cd[1]))
+- 使用一个列表保存x和y的坐标值，看起来比两个变量保存要简洁
+```python
+while 1:
+    try:
+        s_tr = input()
+        cd = [0,0]
+        li = s_tr.split(";") # 字符串分割存入列表
+        for i in li:
+            if i.startswith("A") and len(i) <= 3 and i[1:].isdigit():
+                cd[0] += -int(i[1:])
+            elif i.startswith("D") and len(i) <= 3 and i[1:].isdigit():
+                cd[0] += int(i[1:])
+            elif i.startswith("W") and len(i) <= 3 and i[1:].isdigit():
+                cd[1] += int(i[1:])
+            elif i.startswith("S") and len(i) <= 3 and i[1:].isdigit():
+                cd[1] += -int(i[1:])
+            else:
+                continue
+        print("{0},{1}".format(cd[0], cd[1]))
+    except:
+        break
+```
+5. 另一优秀代码，虽然不能连续输入，但思想值得学习.
+- 在遍历每个坐标时，先判断首个字符是不是特定字母，再接着判断后续字符是不是数字，使用了try...except:pass。当try因字符串非数字而出现异常时，进入except语句pass，最终的结果是：非法坐标不影响代码中断，也不影响最后输出结果
+- x和y的计算也特别有意思，非常简洁而抽象。由于x,y都得执行，因此设置dx，dy表示方向，保证相同索引只有一个非零。
+```python
+import sys
+dx = [-1, 0, 0, 1]
+dy = [0, -1, 1, 0]
+for line in sys.stdin:
+    x, y = 0, 0
+    for cmd in line.split(';'):
+        cmd = cmd.strip()
+        if cmd and cmd[0] in 'ASWD':
+            try:
+                n = int(cmd[1:])
+                x += n * dx['ASWD'.find(cmd[0])]
+                y += n * dy['ASWD'.find(cmd[0])]
+                #print cmd, n, x, y
+            except:
+                pass
+    print("%d,%d"% (x, y))
+```
+
+## Q14：背包问题
+
+
+
+## Q15：
+
 
 
 
