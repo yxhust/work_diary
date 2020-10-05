@@ -700,7 +700,38 @@ for line in sys.stdin:
 
 
 
-## Q15：
+## Q15：最小公倍数
+我的代码，运行时间过长，因为遍历到mxn
+```python
+a,b = map(int,input().split())
+while 1:
+    try:
+        for i in range(max(a,b),a*b+1):
+            if i%a==0 and i%b==0:
+                print(i)
+                break
+    except:
+        break
+```
+
+优秀代码，利用最大公约数与最小公倍数乘积等于两整数积求解
+```python
+def gcd(a, b):
+    """Return greatest common divisor using Euclid's Algorithm."""
+    while b:
+        a, b = b, a % b
+    return a
+def lcm(a, b):
+    """Return lowest common multiple."""
+    return a * b // gcd(a, b)
+    
+while True:
+    try:
+        a,b=map(int,input().split())
+        print(lcm(a,b))
+    except:
+        break
+```
 
 
 
