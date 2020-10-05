@@ -516,7 +516,139 @@ charlist = list(bin(n)[2:])
 print(charlist.count('1'))
  ```
  
- ## Q13：
+ ## Q13：坐标移动
+ ```
+ 题目描述
+开发一个坐标计算工具， A表示向左移动，D表示向右移动，W表示向上移动，S表示向下移动。从（0,0）点开始移动，从输入字符串里面读取一些坐标，并将最终输入结果输出到输出文件里面。
+
+输入：
+
+合法坐标为A(或者D或者W或者S) + 数字（两位以内）
+
+坐标之间以;分隔。
+
+非法坐标点需要进行丢弃。如AA10;  A1A;  $%$;  YAD; 等。
+
+下面是一个简单的例子 如：
+
+A10;S20;W10;D30;X;A1A;B10A11;;A10;
+
+处理过程：
+
+起点（0,0）
+
++   A10   =  （-10,0）
+
++   S20   =  (-10,-20)
+
++   W10  =  (-10,-10)
+
++   D30  =  (20,-10)
+
++   x    =  无效
+
++   A1A   =  无效
+
++   B10A11   =  无效
+
++  一个空 不影响
+
++   A10  =  (10,-10)
+
+结果 （10， -10）
+
+注意请处理多组输入输出
+
+输入描述:
+一行字符串
+
+输出描述:
+最终坐标，以,分隔
+```
  
+ 
+ 
+ 错误代码，错误记录：
+ 1. 当输入不合法坐标时，不能使用coor.remove(i)，造成的结果是`在下一步遍历时会漏掉列表元素`，因此新增valid_coor来保存合法坐标。
+ 2. 当某个坐标为'A1A'时，int(i[1:])就会报错。该代码的目的是：判断后两位字符是数字，1~99。
+ ```python
+ def position_cal():
+    while 1:
+        try:
+            coor = input().split(';')
+            valid_coor = []
+            for i in coor:
+                if i == '':
+                    pass
+                elif len(i) >= 2 and len(i) <= 3 and i.startswith(
+                        ('A', 'W', 'S', 'D')) and int(i[1:]) >= 1 and int(
+                        i[1:]) <= 99:
+                    valid_coor.append(i)
+                else:
+                    pass
+            ad = 0  # x坐标值
+            ws = 0  # y坐标值
+            for j in valid_coor:
+                if j == '':
+                    pass
+                elif j[0] == 'A':
+                    ad -= int(j[1:])
+                elif j[0] == 'D':
+                    ad += int(j[1:])
+                elif j[0] == 'W':
+                    ws += int(j[1:])
+                elif j[0] == 'S':
+                    ws -= int(j[1:])
+                else:
+                    pass
+            print(ad, ws)
+        except:
+            break
+
+
+position_cal()
+```
+3. 通过测试用例的代码，注意点有：
+- **若想确定字符串是两位数字，使用str.isdigit()是个好办法，同时限定字符串长度**；此前的将字符串转化为int，int值在1~99，会有很多问题
+- 注意题目输出，`print(str(ad)+','+str(ws))`
+```python
+def position_cal():
+    while 1:
+        try:
+            coor = input().split(';')
+            valid_coor = []
+            for i in coor:
+                if i == '':
+                    pass
+                elif len(i) >= 2 and len(i) <= 3 and i.startswith(
+                        ('A', 'W', 'S', 'D')) and i[1:].isdigit():
+                    valid_coor.append(i)
+                else:
+                    pass
+            ad = 0  # x坐标值
+            ws = 0  # y坐标值
+            for j in valid_coor:
+                if j == '':
+                    pass
+                elif j[0] == 'A':
+                    ad -= int(j[1:])
+                elif j[0] == 'D':
+                    ad += int(j[1:])
+                elif j[0] == 'W':
+                    ws += int(j[1:])
+                elif j[0] == 'S':
+                    ws -= int(j[1:])
+                else:
+                    pass
+            print(str(ad)+','+str(ws))
+        except:
+            break
+
+
+position_cal()
+```
+
+4. 讨论区优秀代码：
+
 
 
