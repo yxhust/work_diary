@@ -733,6 +733,100 @@ while True:
         break
 ```
 
+## Q16：
+```
+题目描述
+从输入任意个整型数，统计其中的负数个数并求所有非负数的平均值，结果保留一位小数，如果没有非负数，则平均值为0
+本题有多组输入数据，输入到文件末尾，请使用while(cin>>)读入
+数据范围小于1e6
+输入描述:
+输入任意个整数
+
+输出描述:
+输出负数个数以及所有非负数的平均值
+```
+
+我的代码
+```python
+data = []
+while 1:
+    try:
+        n = int(input())
+        data.append(n)
+    except:
+        break
+        
+neg = 0
+pos = []
+for i in data:
+    if i<0:
+        neg+=1
+    else:
+        pos.append(i)
+print(neg)
+sum,count=[0,0]
+for j in pos:
+    count+=1
+    sum+=j
+print(round(sum/count,1))        
+```
+
+除了输入数据外，后续统计负数个数以及非负数平均值，代码冗余。以下是精简代码：
+- 主要在于使用if语句，在完整的语句后加if...else...
+```python
+
+data = []
+while 1:
+    try:
+        n = int(input())
+        data.append(n)
+    except:
+        break
+a, pos, neg = data, [], []
+for i in a:
+    neg.append(int(i)) if int(i) < 0 else pos.append(int(i))
+print(len(neg))
+print(round(sum(pos) / len(pos), 1) if pos else "0.0")
+```
+
+## Q17：求解立方根
+```
+题目描述
+•计算一个数字的立方根，不使用库函数
+
+详细描述：
+
+•接口说明
+
+原型：
+
+public static double getCubeRoot(double input)
+
+输入:double 待求解参数
+
+返回值:double  输入参数的立方根，保留一位小数
+
+
+输入描述:
+待求解参数 double类型
+
+输出描述:
+输入参数的立方根 也是double类型
+```
+
+其实该道题转化为数学问题，在数学上如何实现立方根求解，说明：
+1. 学习完牛顿迭代法，求解立方根x等于按照迭代公式迭代x
+2. 代码逻辑：求n的立方根，初始化x=1，按照牛顿迭代法公式迭代x直至 x接近立方根(x三次方与n的绝对值小于1e-7)，输出。
+```python
+n = float(input())
+x = 1
+while abs(x**3-n)>1e-7:
+    x = (2*x/3)+n/3/x/x
+print(round(x,1))
+```
+
+
+
 
 
 
