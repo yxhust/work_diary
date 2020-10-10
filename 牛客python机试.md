@@ -320,6 +320,29 @@ for i in range(2, a // 2 + 1):
 print(" ".join(map(str, res)) + " " if res else str(a) + " ")
 ```
 
+4. 2020年10月10日21:03:59我再次手动写的代码，并调试通过，有几点感受：
+- 为什么要设置变量res？是为了根据res值来判断输入的n是否是质数
+- 为什么res要设置为列表？因为列表可以添加，且列表可以转换为字符串，str.join()即可
+- 为什么要map(str,res)？因为res的元素都是整数，需要map为str类型，与空格字符串拼接。数字" ".join([2,3,4])会报错，`TypeError: sequence item 0: expected str instance, int found`
+- i遍历，后续的n%i n=n/i都是用i，而不是用数字2
+- 调试代码才能发现测试用例哪些不通过
+
+```python
+n = int(input())
+res = []
+for i in range(2,n//2+1):
+    while n%i == 0:
+        n = n/i
+        res.append(i)
+#         print("%s "%i)
+if not res:
+    print(str(n)+' ')
+else:
+    print(" ".join(map(str,res))+" ")
+```
+
+
+
 ## Q8：合并表记录
 ```
 题目描述
