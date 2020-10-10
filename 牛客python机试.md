@@ -848,6 +848,70 @@ while abs(x**3-n)>1e-7:
 print(round(x,1))
 ```
 
+## Q18：字符次数统计
+```
+题目描述
+如果统计的个数相同，则按照ASCII码由小到大排序输出 。如果有其他字符，则对这些字符不用进行统计。
+
+输入描述:
+输入一串字符。
+
+输出描述:
+对字符中的
+各个英文字符（大小写分开统计），数字，空格进行统计，并按照统计个数由多到少输出,如果统计的个数相同，则按照ASII码由小到大排序输出 。如果有其他字符，则对这些字符不用进行统计。
+```
+
+我的代码，相关说明：
+1. 使用固定结构`while 1 try code except break`保证持续输入
+2. 代码没有对英文字符外的做限制，若做限制，需要使用遍历字符串，每个字符使用多条件or来判断， str.isalpha() str.isdigit() str == ' '
+3. 使用字典统计输入字符串各字符次数
+4. 列表value_list统计字典值次数，去重
+5. list.sort()默认升序，默认reverse=False；升序需要reverse=True
+
+```python
+while 1:
+    try:
+        st = input()
+        # dic计数
+        dic = dict()
+        for i in st:
+            dic[i] = dic.get(i,0)+1
+        # 对dic值，去重后降序
+        value_list = list(set([j for j in dic.values()]))
+        value_list.sort(reverse=True)
+        res = [ ]
+        for m in value_list:
+            # 若次数相同，对多个key做升序，即ASCII码由小到大
+            temp = [k for k,v in dic.items() if v==m] 
+            temp.sort(reverse=False)
+            # 使用extend而非append
+            res.extend(temp)
+        print(''.join(res))
+    except:
+        break
+```
+
+评论区代码，粘贴一个，可以通过测试用例，说明：
+1. 使用set()和字典来统计字符串次数
+2. 对
+
+```python
+while True:
+    try:
+        from collections import defaultdict
+
+        dd, s, res = defaultdict(list), input(), ""
+        for i in set(s):
+            dd[s.count(i)].append(i)
+
+        for i in sorted(dd.keys(), reverse=True):
+            res += "".join(sorted(dd[i], key=ord))
+        print(res)
+    except:
+        break
+
+```
+
 
 
 
