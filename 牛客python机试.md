@@ -912,6 +912,53 @@ while True:
 
 ```
 
+## Q19:
+```
+题目描述
+输入整型数组和排序标识，对其元素按照升序或降序进行排序（一组测试用例可能会有多组数据）
+
+输入描述:
+输入需要输入的整型数个数，排序标识：0表示按升序，1表示按降序
+
+输出描述:
+输出排好序的数字
+
+输入：
+8
+1 2 4 9 3 55 64 25
+0
+
+输出：
+1 2 3 4 9 25 55 64
+```
+
+我的代码，几点说明：
+1. 输入的n个整数是一行字符串的形式，不需要遍历range(n)。**注意区分多个换行输入**
+2. `input_list = list(map(int,input_str.split()))`需要**将map()对象转化为list类型**，后续才能排序。
+    ```
+    >>> map(str,[1,2,5])
+    <map object at 0x000001E43D92B408>
+    >>> "+".join(map(str,[1,2,5]))
+    '1+2+5'
+    ```
+3. 由于输出是一行，使用print()的end=' '，需要额外添加换行才能通过测试用例
+4. 在输出这一块，使用`print(" ".join(map(str,input_list)))`可代替代码输出的三行，区别在于：代码中的输出的是数字，第四点提到的是输出字符串且一行代码足矣
+5. 字符大小与整数大小比较不同，注意转换。**如'5>'11',5<11**
+```python
+while 1:
+    try:
+        n = int(input())
+        input_str = input()
+        flag = int(input())
+        dic = {0:False,1:True}
+        input_list = list(map(int,input_str.split()))
+        input_list.sort(reverse=dic[flag])
+        for i in input_list:
+            print(i,end=' ')
+        print()  
+    except:
+        break
+```
 
 
 
