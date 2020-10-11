@@ -933,7 +933,7 @@ while True:
 ```
 
 我的代码，几点说明：
-1. 输入的n个整数是一行字符串的形式，不需要遍历range(n)。**注意区分多个换行输入**
+1. 输入的n个整数是一行字符串的形式，不需要遍历range(n)。**注意区分[多个换行输入](https://www.nowcoder.com/practice/3245215fffb84b7b81285493eae92ff0?tpId=37&&tqId=21226&rp=1&ru=/ta/huawei&qru=/ta/huawei/question-ranking)**
 2. `input_list = list(map(int,input_str.split()))`需要**将map()对象转化为list类型**，后续才能排序。
     ```
     >>> map(str,[1,2,5])
