@@ -960,6 +960,99 @@ while 1:
         break
 ```
 
+## Q20：自守数
+```
+题目描述
+自守数是指一个数的平方的尾数等于该数自身的自然数。例如：25^2 = 625，76^2 = 5776，9376^2 = 87909376。请求出n以内的自守数的个数
+
+输入描述:
+int型整数
+
+输出描述:
+n以内自守数的数量。
+```
+
+我的代码如下，几点说明：
+1. 核心思想，计算i*i 与 i，将其转化为字符串，有'625'.endswith('25')返回True
+2. 通过测试用例，发现0也算自守数，因此`for i in range(0,n+1)`从0开始共n+1个数
+```python
+while 1:
+    try:
+        n = int(input())
+        count = 0
+        for i in range(1,n+1):
+            i2 = i*i 
+            if str(i2).endswith(str(i)):
+                count += 1
+        print(count)
+    except:
+        break
+```
+
+## Q21: 投票统计
+```
+输入描述:
+输入候选人的人数，第二行输入候选人的名字，第三行输入投票人的人数，第四行输入投票。
+
+输出描述:
+每行输出候选人的名字和得票数量。
+
+输入：
+4
+A B C D
+8
+A B C D E F G H
+输出：
+A : 1
+B : 1
+C : 1
+D : 1
+Invalid : 4
+```
+
+以下我的代码，没通过测试用例，**在于输出格式不对，没有按照候选人顺序输出票数**，代码要点说明：
+1. 原以为输出按照候选人字母升序，因此单独将统计字典的key以升序列表保存。后续按照列表遍历，输出，但测试用例不通过，因为不是按候选人顺序输出
+2. 字典dic，`sorted(dic)`只返回升序key会丢失value；**字典生成式是否会按顺序生成新字典还有待商榷**
+    ```
+    >>> dic={'F':12,'C':2,'D':4,'A':7}
+    >>> asc=sorted(dic)
+    >>> asc
+    ['A', 'C', 'D', 'F']
+    >>> {i:dic[i] for i in asc}
+    {'A': 7, 'C': 2, 'D': 4, 'F': 12}
+    ```
+3. 对于输出invalid部分，采用`if i in c_name:`做判断。这样做是因为计算invalid没想到好办法，进而导致输出不是候选人顺序。
+```python
+while 1:
+    try:
+        c,c_name,v,v_ticket = int(input()),input().split(),int(input()),input().split()
+        dic = {}
+        # 统计票数
+        for k in v_ticket:
+            dic[k] = dic.get(k,0)+1
+        # 将字典按key升序排列，以遍历时按顺序输出
+        key = sorted(list(dic.keys()))
+        # dic2 = {i:dic[i] for i in key }
+
+        # 输出，按格式
+        invalid = 0
+        for i in key:
+            if i in c_name:
+#                 print("%s : %s"%(i,dic[i]))
+                print(i+" : "+str(dic[i]))
+            else:
+                invalid += 1
+#         print("Invalid : %s"%invalid)
+        print("Invalid : "+str(invalid))
+    except:
+        break
+```
+4. 修改后的且通过测试用例的代码，与上述代码区别在于：
+- 上述代码，遍历投票人，若投票人不在候选人名单中，invalid += 1
+- 修改后代码，遍历候选人名单，同时统计有效票数valid
+```python
+
+```
 
 
 
