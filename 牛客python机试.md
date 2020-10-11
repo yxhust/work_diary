@@ -1081,6 +1081,195 @@ while 1:
         break
 ```
 
+## Q22: 空瓶子喝汽水问题
+```
+题目描述
+有这样一道智力题：“某商店规定：三个空汽水瓶可以换一瓶汽水。小张手上有十个空汽水瓶，她最多可以换多少瓶汽水喝？”答案是5瓶，方法如下：先用9个空瓶子换3瓶汽水，喝掉3瓶满的，喝完以后4个空瓶子，用3个再换一瓶，喝掉这瓶满的，这时候剩2个空瓶子。然后你让老板先借给你一瓶汽水，喝掉这瓶满的，喝完以后用3个空瓶子换一瓶满的还给老板。如果小张手上有n个空汽水瓶，最多可以换多少瓶汽水喝？
+输入描述:
+输入文件最多包含10组测试数据，每个数据占一行，仅包含一个正整数n（1<=n<=100），表示小张手上的空汽水瓶数。n=0表示输入结束，你的程序不应当处理这一行。
+
+输出描述:
+对于每组测试数据，输出一行，表示最多可以喝的汽水瓶数。如果一瓶也喝不到，输出0。
+
+输入：
+3
+10
+81
+0
+
+输出：
+1
+5
+40
+
+```
+
+我的代码，通过测试用例，几点说明：
+1. 输入0的处理
+2. 初始化n为输入值，以后的n每一轮迭代为n/3的商和余数之和
+3. 特殊值n=2，瓶数+1
+```python
+while 1:
+    try:
+        n = int(input())
+        # 输入0，程序结束
+        if n == 0:
+            break
+        # 一个商quotient，一个输出结果res
+        quotient,res = 0,0
+        # 只要剩余>=2，就进入循环计算
+        while n >= 2:
+            # =2时，加一瓶，并跳出
+            if n == 2:
+                res += 1
+                break
+            # 迭代n，为商+余数和，同时记录该次的瓶数
+            quotient = n//3
+            remainder = n%3
+            n = quotient + remainder
+            res += quotient
+        print(res)
+    except:
+        break
+```
+
+讨论区优秀代码，因为在思维上能挖掘出结果，因此代码很简单
+```python
+while True:
+    try:
+       a=int(input())
+       if a!=0:
+           print(a//2)
+
+    except:
+        break
+```
+
+## Q23：统计每个月兔子总数
+```
+题目描述
+有一只兔子，从出生后第3个月起每个月都生一只兔子，小兔子长到第三个月后每个月又生一只兔子，假如兔子都不死，问每个月的兔子总数为多少？
+
+输入描述:
+输入int型表示month
+
+输出描述:
+输出兔子总数int型
+
+示例1
+输入
+9
+
+输出
+34
+```
+
+经过讨论区提示，写出的代码，说明：
+1. 该问题是斐波那契数列，如何从问题中抽象出本质，很难
+```
+第n个月的兔子数量f(n)，由上个月的已有兔子和本月新出生兔子构成，前者为f(n-1)，后者为f(n-2)，因此有f(n)=f(n-1)+f(n-2)*1
+```
+2. 使用递归，完成斐波那契求解
+3. `while 1 try mycode except break`固定格式
+```python
+def f(n):
+    if n==1 or n==2:
+        return 1
+    else:
+        return f(n-1)+f(n-2)
+
+while 1:
+    try:
+        n = int(input())
+        print(f(n))
+    except:
+        break
+```
+4. 使用迭代，a+b=c在下一轮中a为b，b为c
+```python
+while 1:
+    try:
+        n = int(input())
+        a,b,c=1,1,0
+        for i in range(n):
+            if i==0 or i==1:
+                c=1
+            else:
+                c = a+b 
+                a=b 
+                b=c 
+        print(c)
+    except:
+        break
+```
+
+## Q24: 计算日期在一年中天数
+```
+题目描述
+根据输入的日期，计算是这一年的第几天。。
+
+详细描述：
+
+输入某年某月某日，判断这一天是这一年的第几天？。
+
+测试用例有多组，注意循环输入
+
+输入描述:
+输入多行，每行空格分割，分别是年，月，日
+
+输出描述:
+成功:返回outDay输出计算后的第几天; 失败:返回-1                                          
+```
+
+我的代码，使用datetime模块，几点说明：
+1. 代码要一行行写，本次**写input忘记()**
+2. map对象要list
+3. date.toordinal()返回日历公元序号,其中公元 1 年 1 月 1 日的序号为 1。两序号相减，记得+1才是天数
+```python
+import datetime
+while 1:
+    try:
+        date = list(map(int,input().split()))
+        my_date = datetime.date(date[0], date[1], date[2])
+        print(my_date.toordinal() - datetime.date(date[0],1,1).toordinal()+1)
+    except:
+        break
+```
+
+讨论区代码一，关于strftime()方法说明：
+- 对象：适用date\datetime\time对象
+- 作用：根据给定的格式将对象转换为字符串
+- %j：以补零后的十进制数表示的一年中的日序号，为001, 002, ..., 366
+```python
+import datetime
+while True:
+    try:
+        print(datetime.datetime(*map(int, input().split())).strftime("%j").lstrip("0"))
+    except:
+        break
+ ```
+ 
+ 讨论区代码二，不使用datetime模块，说明：
+ 1. 判断闰年，if (year%100!=0 and year%4==0) or (year%400==0)
+ 2. 统计天数，取每个月天数的month-1，如2月3日，只需要取一月的天数+3
+ 3. 失败-1都未做判断
+ ```python
+ while 1:
+    try:
+        date = list(map(int,input().split()))
+        year,month,day = date[0],date[1],date[2]
+        if (year%100!=0 and year%4==0) or (year%400==0):
+            m2 = 29
+        else:
+            m2 = 28
+        m_days = [31,m2,31,30,31,30,31,31,30,31,30,31]
+
+        res = sum(m_days[:month-1])+day
+        print(res)
+           
+    except:
+        break
+ ```
 
 
 
