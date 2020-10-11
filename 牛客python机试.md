@@ -1049,9 +1049,36 @@ while 1:
 ```
 4. 修改后的且通过测试用例的代码，与上述代码区别在于：
 - 上述代码，遍历投票人，若投票人不在候选人名单中，invalid += 1
-- 修改后代码，遍历候选人名单，同时统计有效票数valid
+- 修改后代码，遍历候选人名单，同时统计有效票数valid，**使用总投票数减去有效票数得到无效票数，很巧妙**
+- 为了通过测试用例，**不放弃不敷衍，终于通过测试用例，不通过不会是偶然的，还是有原因的**
+    ```
+    4
+    A B C D
+    8
+    E F G H E F G H
+    ```
+- 使用字典计数是没问题的，关键在于后面的遍历候选人，dic[i]会由于i不存在而抛出异常进入except语句
+- 若使用collections模块的Counter计数，如`dic = Counter(v_ticket)`，即使访问不存在的key时也会返回0，访问方式只有`dic[i]`
+- 这样的深究很有价值啊
 ```python
+# from collections import Counter
+while 1:
+    try:
+        c,c_name,v,v_ticket = int(input()),input().split(),int(input()),input().split()
+        dic = {}
+        # 统计票数
+        for k in v_ticket:
+            dic[k] = dic.get(k,0)+1
+#         dic = Counter(v_ticket)
 
+        # 输出，按候选人顺序格式
+        valid = 0
+        for i in c_name:
+            print("%s : %s"%(i,dic.get(i,0)))
+            valid += dic.get(i,0) 
+        print("Invalid : %s"%(len(v_ticket)-valid))
+    except:
+        break
 ```
 
 
