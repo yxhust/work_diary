@@ -1356,7 +1356,7 @@ abcdefg
 1. 使用ASCII码来判断字符，ord()函数获得字符的ASCII码，cha()函数将ASCII码转化为字符
 2. ord('1')有意义，ord(1)报错
 3. 新建res变量，同步遍历原字符串并输出
-``python
+```python
 def en_pw():
     s = input()
     res = ''
@@ -1432,28 +1432,28 @@ print(en_pw())
 - 使用mode，-1为加密，-mode为+1
 - %10很好的解决了边界数字问题
 - 其他非数字、非字母的字符，在else语句中有考虑到
-```python
-def encodeAndDecode(string,mode):
-    result = ''
-    for i in string:
-        code = ord(i)
-        if 48 <= code <= 57:        #字符为数字时
-            result += chr(48 + (code - 48 - mode) % 10)
-        elif 65 <= code <= 90:      #字符为大写字母时
-            result += chr(97 + (code - 65 - mode) % 26)
-        elif 97 <= code <= 122:     #字符为小写字母时
-            result += chr(65 + (code - 97 - mode) % 26)
-        else:                       #其他字符
-            result += i
-    return result
+    ```python
+    def encodeAndDecode(string,mode):
+        result = ''
+        for i in string:
+            code = ord(i)
+            if 48 <= code <= 57:        #字符为数字时
+                result += chr(48 + (code - 48 - mode) % 10)
+            elif 65 <= code <= 90:      #字符为大写字母时
+                result += chr(97 + (code - 65 - mode) % 26)
+            elif 97 <= code <= 122:     #字符为小写字母时
+                result += chr(65 + (code - 97 - mode) % 26)
+            else:                       #其他字符
+                result += i
+        return result
 
-try:
-    while True:
-        print(encodeAndDecode(input(),-1))
-        print(encodeAndDecode(input(), 1))
-except Exception:
-    pass
-```
+    try:
+        while True:
+            print(encodeAndDecode(input(),-1))
+            print(encodeAndDecode(input(), 1))
+    except Exception:
+        pass
+    ```
 
 ## Q27：字符串按规则排序
 ```
@@ -1488,23 +1488,23 @@ A aaAAbc dFgghh: iimM nNn oooos Sttuuuy (2012/8).
 讨论区代码研究，
 1. list.sort(key = lambda x:x.lower())很精妙，既可以忽视字母大小写排序，又可以当字母存在大小写时保持原字母顺序不变（这点是附带的）。
 - 该段代码可简写lambda函数，为`list.sort(key = str.lower)`，因为str.lower是通用函数。这里lower不要括号，若添加括号，报错`TypeError: descriptor 'lower' of 'str' object needs an argument`
-```python
->>> test3 = ['f','F','A','a','A','a','B']
->>> test3.sort()
->>> test3
-['A', 'A', 'B', 'F', 'a', 'a', 'f']
->>> test4 = ['f','F','A','a','A','a','B']
->>> test4.sort(key=lambda x:x.lower())
->>> test4
-['A', 'a', 'A', 'a', 'B', 'f', 'F']
->>> test5 = ['f','F','A','a','A','a','B']
->>> p = test5
->>> p.sort()
->>> p
-['A', 'A', 'B', 'F', 'a', 'a', 'f']
->>> test5
-['A', 'A', 'B', 'F', 'a', 'a', 'f']
-```
+    ```python
+    >>> test3 = ['f','F','A','a','A','a','B']
+    >>> test3.sort()
+    >>> test3
+    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
+    >>> test4 = ['f','F','A','a','A','a','B']
+    >>> test4.sort(key=lambda x:x.lower())
+    >>> test4
+    ['A', 'a', 'A', 'a', 'B', 'f', 'F']
+    >>> test5 = ['f','F','A','a','A','a','B']
+    >>> p = test5
+    >>> p.sort()
+    >>> p
+    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
+    >>> test5
+    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
+    ```
 2. 
 
 ```python
