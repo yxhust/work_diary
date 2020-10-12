@@ -1540,7 +1540,248 @@ while True:
 4. 要输出制定内容，先构造res列表，最后使用join输出。
 
 
-## Q28:
+## Q28: 简单密码变换
+```
+题目描述
+密码是我们生活中非常重要的东东，我们的那么一点不能说的秘密就全靠它了。哇哈哈. 接下来渊子要在密码之上再加一套密码，虽然简单但也安全。
+
+ 
+
+假设渊子原来一个BBS上的密码为zvbo9441987,为了方便记忆，他通过一种算法把这个密码变换成YUANzhi1987，这个密码是他的名字和出生年份，怎么忘都忘不了，而且可以明目张胆地放在显眼的地方而不被别人知道真正的密码。
+
+ 
+
+他是这么变换的，大家都知道手机上的字母： 1--1， abc--2, def--3, ghi--4, jkl--5, mno--6, pqrs--7, tuv--8 wxyz--9, 0--0,就这么简单，渊子把密码中出现的小写字母都变成对应的数字，数字和其他的符号都不做变换，
+
+ 
+
+声明：密码中没有空格，而密码中出现的大写字母则变成小写之后往后移一位，如：X，先变成小写，再往后移一位，不就是y了嘛，简单吧。记住，z往后移是a哦。
+
+
+输入描述:
+输入包括多个测试数据。输入是一个明文，密码长度不超过100个字符，输入直到文件结尾
+
+输出描述:
+输出渊子真正的密文
+
+示例1
+输入
+复制
+YUANzhi1987
+输出
+复制
+zvbo9441987
+```
+
+我的代码，几点：
+1. 在字符串输出中，常用空字符串来保存输出结果
+2. `ord(i)>=ord('A') and ord(i)<ord('Z')`表示除Z外的大写字母，注意都是ASCII码
+3. 由于res是字符串拼接，dic的值都是整数，因此：`res += str(v)`必须对整数v做类型转换。或者dic的值在建立时用'1'而不是1
+```python
+while 1:
+    try:
+        s = input()
+        res = ''
+        dic = {'abc':2,'def':3,'ghi':4,'jkl':5,'mno':6,'pqrs':7,'tuv':8,'wxyz':9}
+        for i in s:
+            if ord(i)>=ord('A') and ord(i)<ord('Z'):
+                res += chr(ord(i.lower())+1)
+            elif i == 'Z':
+                res += 'a'
+            elif i.islower():
+                for k,v in dic.items():
+                    if i in k:
+                        res += str(v)
+            else:
+                res += i 
+        print(res)
+    except:
+        break
+```
+
+讨论区有个代码，以后在研究
+```python
+inttab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+outtab = "bcdefghijklmnopqrstuvwxyza22233344455566677778889999"
+while True:
+    try:
+        pwd = input()
+        print(pwd.translate(pwd.maketrans(inttab, outtab)))
+    except:
+        break
+```
+
+经过提示，直接对照好字母对照字符串，而不是字典，新建立了更简洁的代码：
+```python
+inttab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+outtab = "bcdefghijklmnopqrstuvwxyza22233344455566677778889999"
+while True:
+    try:
+        s = input()
+        res = ''
+        for i in s:
+            if i.isalpha():
+                res += outtab[inttab.find(i)]
+            else:
+                res += i 
+        print(res)
+    except:
+        break
+```
+
+## Q29: 密码验证
+```
+题目描述
+
+1.长度超过8位
+2.包括大小写字母.数字.其它符号,以上四种至少三种
+3.不能有相同长度大于2的子串重复
+
+输入描述:
+一组或多组长度超过2的子符串。每组占一行
+
+输出描述:
+如果符合要求输出：OK，否则输出NG
+
+示例1
+输入
+复制
+021Abc9000
+021Abc9Abc1
+021ABC9000
+021$bc9000
+输出
+复制
+OK
+NG
+NG
+OK
+```
+
+我的代码，对重复子串无能为力
+```python
+while 1:
+    try:
+        s = input()
+        if len(s)<=8:
+            print('NG')
+            continue
+
+        flag_list = [0,0,0,0]
+        for i in s:
+            if i>='A' and i<='Z':
+                flag_list[0] += 1
+            elif i>='a' and i<='z':
+                flag_list[1] += 1
+            elif i>='0' and i<='9':
+                flag_list[2] += 1
+            else:
+                flag_list[3] += 1
+        if ''.join(map(str,flag_list)).count('0')> 1:
+            print('NG')
+            continue
+            
+        print('OK')
+    except:
+        break
+```
+
+讨论区代码一，输入使用for遍历，使用re.search(pattern,string)查找是否含有大写字母、小写字母、数字或其他，重复字串的正则没学到
+```python
+import sys
+import re
+
+for line in sys.stdin:
+    
+    line = line.strip()
+    #1
+    if len(line) <= 8:
+        print("NG")
+        continue
+    #2
+    count = 0
+    if re.search('[0-9]',line): count += 1
+    if re.search('[a-z]',line): count += 1
+    if re.search('[A-Z]',line): count += 1
+    if re.search('[^a-zA-Z0-9]',line): count += 1
+    if count < 3: 
+        print("NG")
+        continue
+    #3:
+    if re.search(r'.*(...)(.*\1)', line):
+        print("NG")
+        continue
+    
+    print("OK")
+```
+
+讨论区代码二，使用遍历查找重复子串
+```python
+import re,sys
+for i in sys.stdin.readlines():
+    print("OK" if len(i.strip())>8 and 
+          sum([1 if re.search(r"[A-Z]",i.strip()) else 0,
+               1 if re.search(r"[a-z]",i.strip()) else 0,
+               1 if re.search(r"[0-9]",i.strip()) else 0,
+               1 if re.search(r"[^0-9a-zA-Z]",i.strip()) else 0])>2 and 
+          sum(map(lambda c:i.strip().count(i.strip()[c:c+3])>1,range(1,len(i.strip())-3)))==0 
+          else "NG")
+ ```
+ 
+讨论区代码三，使用正则查找
+```python
+import re
+try:
+    while 1:
+        
+        s = input()
+        
+        a = re.findall(r'(.{3,}).*\1', s)
+        b1 = re.findall(r'\d', s)
+        b2 = re.findall(r'[A-Z]', s)
+        b3 = re.findall(r'[a-z]', s)
+        b4 = re.findall(r'[^0-9A-Za-z]', s)
+
+        print('OK' if ([b1, b2, b3, b4].count([]) <= 1 and a == [] and len(s) > 8) else 'NG')
+except:
+    break
+```
+
+## Q30：最大回文子串
+```
+题目描述
+Catcher是MCA国的情报员，他工作时发现敌国会用一些对称的密码进行通信，比如像这些ABBA，ABA，A，123321，但是他们有时会在开始或结束时加入一些无关的字符以防止别国破解。比如进行下列变化 ABBA->12ABBA,ABA->ABAKK,123321->51233214　。因为截获的串太长了，而且存在多种可能的情况（abaaab可看作是aba,或baaab的加密形式），Cathcer的工作量实在是太大了，他只能向电脑高手求助，你能帮Catcher找出最长的有效密码串吗？
+
+输入描述:
+输入一个字符串
+
+输出描述:
+返回有效密码串的最大长度
+```
+
+这是最大回文子串问题，讨论区代码，要在本子上推敲。
+```python
+def longestPalindrome(s):
+    if s==s[::-1]:return len(s)
+    maxLen=0
+    for i in range(len(s)):
+        if i-maxLen>=1 and s[i-maxLen-1:i+1]==s[i-maxLen-1:i+1][::-1]:
+            maxLen+=2
+            continue
+        if i-maxLen>=0 and s[i-maxLen:i+1]==s[i-maxLen:i+1][::-1]:
+            maxLen+=1
+    return maxLen
+    
+while True:
+    try:
+        a=input()
+        if a:
+            print(longestPalindrome(a))
+
+    except:
+        break
+ ```
+
 
 
 
