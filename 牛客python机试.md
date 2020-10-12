@@ -1271,5 +1271,266 @@ while True:
         break
  ```
 
+## Q25: 删除字符串次数最少的字符
+```
+题目描述
+实现删除字符串中出现次数最少的字符，若多个字符出现次数一样，则都删除。输出删除这些单词后的字符串，字符串中其它字符保持原来的顺序。
+注意每个输入文件有多组输入，即多个字符串用回车隔开
+输入描述:
+字符串只包含小写英文字母, 不考虑非法输入，输入的字符串长度小于等于20个字节。
+
+输出描述:
+删除字符串中出现次数最少的字符后的字符串。
+```
+
+我的代码，说明：
+1. 使用Counter统计字符串各字符出现次数，并转化为dic对象
+2. 找出次数最少的值，使用min()函数即可
+3. 输出符合要求的字符串，使用字符串拼接
+```python
+from collections import Counter
+while 1:
+    try:
+        s = input()
+        stat = dict(Counter(s))
+        min_v = min(stat.values())
+        del_char = [k for k,v in stat.items() if v==min_v]
+        # 输出删除后的字符
+        res = ''
+        for i in s:
+            if not i in del_char:
+                res += i
+        print(res)
+    except:
+        break
+```
+
+另外一种代码，使用空字符串''替代要删除的字符，但 **遍历字符串又替代字符串逻辑很混乱容易出错，不建议使用**
+```python
+from collections import Counter
+while 1:
+    try:
+        s = input()
+        stat = dict(Counter(s))
+        min_v = min(stat.values())
+        del_char = [k for k,v in stat.items() if v==min_v]
+        # 输出删除后的字符
+#         res = ''
+#         for i in s:
+#             if not i in del_char:
+#                 res += i
+#         print(res)
+        for i in s:
+            if i in del_char:
+                s = s.replace(i, '')
+        print(s)
+    except:
+        break
+```
+
+## Q26:字符串加解密
+```
+题目描述
+1、对输入的字符串进行加解密，并输出。
+
+2、加密方法为：
+
+当内容是英文字母时则用该英文字母的后一个字母替换，同时字母变换大小写,如字母a时则替换为B；字母Z时则替换为a；
+
+当内容是数字时则把该数字加1，如0替换1，1替换2，9替换0；
+
+其他字符不做变化。
+
+3、解密方法为加密的逆过程。
+
+输入
+abcdefg
+BCDEFGH
+输出
+BCDEFGH
+abcdefg
+
+```
+
+我的代码，添加while句式才能通过测试用例，几点说明：
+1. 使用ASCII码来判断字符，ord()函数获得字符的ASCII码，cha()函数将ASCII码转化为字符
+2. ord('1')有意义，ord(1)报错
+3. 新建res变量，同步遍历原字符串并输出
+``python
+def en_pw():
+    s = input()
+    res = ''
+    for i in s:
+        if ord(i)>=ord('a') and ord(i)<ord('z'):
+            res += chr(ord(i)+1).upper()
+        elif ord(i)==ord('z'):
+            res += 'A'
+        elif ord(i)>=ord('A') and ord(i)<ord('Z'):
+            res += chr(ord(i)+1).lower()
+        elif ord(i)==ord('Z'):
+            res += 'a'
+        elif ord(i)>=ord('0') and ord(i)<ord('9'):
+            res += chr(ord(i)+1)
+        elif ord(i)==ord('9'):
+            res += '0'
+    return res
+
+def de_pw():
+    s = input()
+    res = ''
+    for i in s:
+        if ord(i)>ord('a') and ord(i)<=ord('z'):
+            res += chr(ord(i)-1).upper()
+        elif ord(i)==ord('a'):
+            res += 'Z'
+        elif ord(i)>ord('A') and ord(i)<=ord('Z'):
+            res += chr(ord(i)-1).lower()
+        elif ord(i)==ord('A'):
+            res += 'z'
+        elif ord(i)>ord('0') and ord(i)<=ord('9'):
+            res += chr(ord(i)-1)
+        elif ord(i)==ord('0'):
+            res += '9'
+    return res
+
+while 1:
+    try:
+        print(en_pw())
+        print(de_pw())
+    except:
+        break
+```
+
+4. 使用replace会出现异常错误，如加密函数的测试用例为 `abcdefz019` ,输出结果为错误的 `BCDEFGA220`
+```python
+def en_pw():
+    s = input()
+    for i in s:
+        if ord(i)>=ord('a') and ord(i)<ord('z'):
+            s = s.replace(i, chr(ord(i)+1).upper())
+        elif ord(i)==ord('z'):
+            s = s.replace(i, 'A')
+        elif ord(i)>=ord('A') and ord(i)<ord('Z'):
+            s = s.replace(i, chr(ord(i)+1).lower())
+        elif ord(i)==ord('Z'):
+            s = s.replace(i, 'a')
+        elif ord(i)>=ord('0') and ord(i)<ord('9'):
+            s = s.replace(i, chr(ord(i)+1))
+        elif ord(i)==ord('9'):
+            s = s.replace(i, '0')
+        # return s
+    return s
+
+# def de_pw():
+#     pass
+
+print(en_pw())
+# print(de_pw())
+```
+5. 讨论区优秀代码，
+- 使用ASCII码判断字符，ord(i)返回int型
+- 使用mode，-1为加密，-mode为+1
+- %10很好的解决了边界数字问题
+- 其他非数字、非字母的字符，在else语句中有考虑到
+```python
+def encodeAndDecode(string,mode):
+    result = ''
+    for i in string:
+        code = ord(i)
+        if 48 <= code <= 57:        #字符为数字时
+            result += chr(48 + (code - 48 - mode) % 10)
+        elif 65 <= code <= 90:      #字符为大写字母时
+            result += chr(97 + (code - 65 - mode) % 26)
+        elif 97 <= code <= 122:     #字符为小写字母时
+            result += chr(65 + (code - 97 - mode) % 26)
+        else:                       #其他字符
+            result += i
+    return result
+
+try:
+    while True:
+        print(encodeAndDecode(input(),-1))
+        print(encodeAndDecode(input(), 1))
+except Exception:
+    pass
+```
+
+## Q27：字符串按规则排序
+```
+题目描述
+编写一个程序，将输入字符串中的字符按如下规则排序。
+
+规则 1 ：英文字母从 A 到 Z 排列，不区分大小写。
+
+如，输入： Type 输出： epTy
+
+规则 2 ：同一个英文字母的大小写同时存在时，按照输入顺序排列。
+
+如，输入： BabA 输出： aABb
+
+规则 3 ：非英文字母的其它字符保持原来的位置。
+
+如，输入： By?e 输出： Be?y
+
+注意有多组测试数据，即输入有多行，每一行单独处理（换行符隔开的表示不同行）
+
+输入描述:
+输入字符串
+输出描述:
+输出字符串
+
+输入
+A Famous Saying: Much Ado About Nothing (2012/8).
+输出
+A aaAAbc dFgghh: iimM nNn oooos Sttuuuy (2012/8).
+```
+
+讨论区代码研究，
+1. list.sort(key = lambda x:x.lower())很精妙，既可以忽视字母大小写排序，又可以当字母存在大小写时保持原字母顺序不变（这点是附带的）。
+- 该段代码可简写lambda函数，为`list.sort(key = str.lower)`，因为str.lower是通用函数。这里lower不要括号，若添加括号，报错`TypeError: descriptor 'lower' of 'str' object needs an argument`
+```python
+>>> test3 = ['f','F','A','a','A','a','B']
+>>> test3.sort()
+>>> test3
+['A', 'A', 'B', 'F', 'a', 'a', 'f']
+>>> test4 = ['f','F','A','a','A','a','B']
+>>> test4.sort(key=lambda x:x.lower())
+>>> test4
+['A', 'a', 'A', 'a', 'B', 'f', 'F']
+>>> test5 = ['f','F','A','a','A','a','B']
+>>> p = test5
+>>> p.sort()
+>>> p
+['A', 'A', 'B', 'F', 'a', 'a', 'f']
+>>> test5
+['A', 'A', 'B', 'F', 'a', 'a', 'f']
+```
+2. 
+
+```python
+while True:
+    try:
+        a = input()
+        # res是最终返回的字符串的列表形式，char是提取的英文字母。
+        res, char = [False] * len(a), []
+        # 经过这个循环，把相应的非英文字母及其位置存储到了res中。并且把英文字母提取出来了。
+        for i, v in enumerate(a):
+            if v.isalpha():
+                char.append(v)
+            else:
+                res[i] = v
+        # 使用lambda表达式排序，暴力有效。
+        char.sort(key=lambda c: c.lower())
+        # 将char中对应的字符填到res中。
+        for i, v in enumerate(res):
+            if not v:
+                res[i] = char[0]
+                char.pop(0)
+        print("".join(res))
+    except:
+        break
+```
+
+
 
 
