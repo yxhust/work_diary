@@ -1486,27 +1486,6 @@ A aaAAbc dFgghh: iimM nNn oooos Sttuuuy (2012/8).
 ```
 
 讨论区代码研究，
-1. list.sort(key = lambda x:x.lower())很精妙，既可以忽视字母大小写排序，又可以当字母存在大小写时保持原字母顺序不变（这点是附带的）。
-- 该段代码可简写lambda函数，为`list.sort(key = str.lower)`，因为str.lower是通用函数。这里lower不要括号，若添加括号，报错`TypeError: descriptor 'lower' of 'str' object needs an argument`
-    ```python
-    >>> test3 = ['f','F','A','a','A','a','B']
-    >>> test3.sort()
-    >>> test3
-    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
-    >>> test4 = ['f','F','A','a','A','a','B']
-    >>> test4.sort(key=lambda x:x.lower())
-    >>> test4
-    ['A', 'a', 'A', 'a', 'B', 'f', 'F']
-    >>> test5 = ['f','F','A','a','A','a','B']
-    >>> p = test5
-    >>> p.sort()
-    >>> p
-    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
-    >>> test5
-    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
-    ```
-2. 
-
 ```python
 while True:
     try:
@@ -1530,6 +1509,41 @@ while True:
     except:
         break
 ```
+1. list.sort(key = lambda x:x.lower())很精妙，既可以忽视字母大小写排序，又可以当字母存在大小写时保持原字母顺序不变（这点是附带的）。
+- 该段代码可简写lambda函数，为`list.sort(key = str.lower)`，因为str.lower是通用函数。这里lower不要括号，若添加括号，报错`TypeError: descriptor 'lower' of 'str' object needs an argument`
+    ```python
+    >>> test3 = ['f','F','A','a','A','a','B']
+    >>> test3.sort()
+    >>> test3
+    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
+    >>> test4 = ['f','F','A','a','A','a','B']
+    >>> test4.sort(key=lambda x:x.lower())
+    >>> test4
+    ['A', 'a', 'A', 'a', 'B', 'f', 'F']
+    >>> test5 = ['f','F','A','a','A','a','B']
+    >>> p = test5
+    >>> p.sort()
+    >>> p
+    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
+    >>> test5
+    ['A', 'A', 'B', 'F', 'a', 'a', 'f']
+    ```
+2. 将列表char按顺序插入字符到res中，除了使用以上方法，还可以
+```python
+        bit = 0
+        for i, v in enumerate(res):
+            if not v:
+                res[i] = char[bit]
+                bit += 1
+```
+3. enumerate()返回对象，可用for遍历。
+4. 要输出制定内容，先构造res列表，最后使用join输出。
+
+
+## Q28:
+
+
+
 
 
 
