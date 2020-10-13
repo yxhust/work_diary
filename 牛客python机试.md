@@ -1992,16 +1992,148 @@ while True:
     except:break
 ```
 
-## Q34:
+## Q34: 按指定规则处理字符串(奇数位、偶数位均升序)
+```
+题目描述
+按照指定规则对输入的字符串进行处理。
+
+详细描述：
+
+将输入的两个字符串合并。
+
+对合并后的字符串进行排序，要求为：下标为奇数的字符和下标为偶数的字符分别从小到大排序。这里的下标意思是字符在字符串中的位置。
+
+对排序后的字符串进行操作，如果字符为‘0’——‘9’或者‘A’——‘F’或者‘a’——‘f’，则对他们所代表的16进制的数进行BIT倒序的操作，并转换为相应的大写字符。如字符为‘4’，为0100b，则翻转后为0010b，也就是2。转换后的字符为‘2’； 如字符为‘7’，为0111b，则翻转后为1110b，也就是e。转换后的字符为大写‘E’。
+
+
+举例：输入str1为"dec"，str2为"fab"，合并为“decfab”，分别对“dca”和“efb”进行排序，排序后为“abcedf”，转换后为“5D37BF”
 ```
 
+讨论区代码一，优秀之处：
+1. 合并字符串就很简洁
+2. 优雅的将字符串奇数位偶数位分别升序排列。具体操作：利用字符串切片（与列表一样）取出奇数位、偶数位，分别排好序，新建用于保存排序后的变量temp，先添加偶数位再添加奇数位。
+3. 字符转换部分。对于'1'-'9':
+   - int(i)
+   - bin(int(i))  0b开头，二进制只有三位，返回字符串类型
+   - bin(int(i))[2:]  取有用数字字符串
+   - '{:0>4}'.format(bin(int(i))[2:]) 三位数字添加到四位，如'100'变为'0100'
+   - '{:0>4}'.format(bin(int(i))[2:])[::-1]  字符串倒序
+   - int('{:0>4}'.format(bin(i)[2:])[::-1],2) 将二进制字符串转化为十进制，返回的是int类型
+   - alphabet[int('{:0>4}'.format(bin(int(i))[2:])[::-1],2)] 字符串索引，如索引是10，该段代码返回的'A'
+4. 对于'A'-'F': 
+   - 同一大小写，转换为数字10-15，`i = ord(i.upper())-55`('A'的ASCII码为65) 。 
+   - `alphabet[int('{:0>4}'.format(bin(i)[2:])[::-1],2)]`  i已经是数字，
+```python
+try:
+    while True:
+        alphabet = '0123456789ABCDEF'
+        string = list(input().replace(' ',''))
+        temp1 = sorted(string[::2])
+        temp2 = sorted(string[1::2])
+        temp = []
+        while temp1 or temp2:
+            if temp1:
+                temp.append(temp1.pop(0))
+            if temp2:
+                temp.append(temp2.pop(0))
+        result = ''
+        for i in temp:
+            if i.isdigit():
+                result += alphabet[int('{:0>4}'.format(bin(int(i))[2:])[::-1],2)]
+            elif 'a' <= i <= 'f' or 'A' <= i <= 'F':
+                i = ord(i.upper())-55
+                result += alphabet[int('{:0>4}'.format(bin(i)[2:])[::-1],2)]
+            else:
+                result += i
+        print(result)
+
+except Exception:
+    pass
 ```
 
+讨论区代码二，基本思路差不多：
+1. str.rjust()
+```python
+while True:
+    try:
 
+        dic = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
+        s = input().replace(" ", "")  #s是输入的合并后的字符串
+        ss = ""  #ss为最终返回的字符串
+        odd, even = "", ""  # 字符串的奇数子串和偶数子串
+        # 经过下面的循环，提取奇数与偶数的子串。
+        for i, v in enumerate(s):
+            if i % 2 == 0:
+                even += v
+            else:
+                odd += v
+        # 奇数与偶数部分排序        
+        odd = "".join(sorted(odd))
+        even = "".join(sorted(even))
+
+        # 如果字符串在0123456789abcdefABCDEF范围内，对其做变换，否则不做任何处理。
+        for i in range(len(even)):
+            if even[i] in "0123456789abcdefABCDEF":
+                ss += dic[int(bin(dic.index(even[i].upper())).replace("0b", "").rjust(4, "0")[::-1], 2)]
+            else:
+                ss += even[i]
+            if len(odd) != i:   #注意偶数串可能比奇数串长一个字符，所以要做一下判断。
+                if odd[i] in "0123456789abcdefABCDEF":
+                    ss += dic[int(bin(dic.index(odd[i].upper())).replace("0b", "").rjust(4, "0")[::-1], 2)]
+                else:
+                    ss += odd[i]
+        print(ss)
+    except:
+        break
+```
+
+我的代码，只写到合并字符串、排序字符串，字符转换没完成，代码如下：
+1. 与讨论区代码一区别在于将排序好的奇数位偶数位字符拼接时，使用的for循环，不是while。感觉while会更好，这里的for只是次数的遍历
+```python
+str1,str2 = input().split()
+comb_str = str1+str2
+comb_list = list(comb_str)
+oushu = sorted(comb_list[0::2])
+jishu = sorted(comb_list[1::2])
+
+res = []
+for i in range(len(comb_list)):
+    if oushu:
+        res.append(oushu[0])
+        oushu.pop(0)
+    if jishu:
+        res.append(jishu[0])
+        jishu.pop(0)
+        
+print(res)
+print("".join(res))
+```
+
+## Q35:
+```
+题目描述
+将一个字符中所有出现的数字前后加上符号“*”，其他字符保持不变
+
+注意：输入数据可能有多行
+输入描述:
+输入一个字符串
+
+输出描述:
+字符中所有出现的数字前后加上符号“*”，其他字符保持不变
+
+示例1
+输入
+复制
+Jkdi234klowe90a3
+输出
+复制
+Jkdi*234*klowe*90*a*3*
+```
+
+经过提示，我的代码如下
 ```python
 
 ```
-
 
 
 
