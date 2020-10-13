@@ -1893,8 +1893,114 @@ print(eval(s))
 ```
 
 
-## Q33:
+## Q33: 公共子串长度计算
+```
+题目描述
 
+计算两个字符串的最大公共字串的长度，字符不区分大小写
+
+详细描述：
+
+接口说明
+
+原型：
+
+int getCommonStrLength(char * pFirstStr, char * pSecondStr);
+
+输入参数：
+
+     char * pFirstStr //第一个字符串
+
+     char * pSecondStr//第二个字符串
+ 
+
+输入描述:
+输入两个字符串
+
+输出描述:
+输出一个整数
+```
+
+我的代码，通过测试用例：
+1. 核心思想是：子串长度i按较短字符串长度倒序遍历，分别以子串长度i取两个字符串中所有长度子串，若存在相等，输出此时i，exit()退出程序（若exit报错，import sys  使用sys.exit()）
+2. 核心思想对应的代码，i/p/q都是在纸上推导出的。
+3. 切片时，即使下标超过索引也不会报错
+4. 涉及到三个for循环，使用一个break只能退出一个for。
+```python
+a = input().lower()
+b = input().lower()
+maxlen = min(len(a),len(b))
+for i in range(maxlen,0,-1):
+    for p in range(0,len(a)-i+1):
+        for q in range(0,len(b)-i+1):
+            if a[p:p+i] == b[q:q+i]:
+                print(i)
+                exit()
+```
+
+讨论区代码一，将短字符串赋值为a，对字符串切片，切片两个下标一个从0增一个从len减，这个不如我的算法。
+**有一点学习的，因为会输出多个子串长度len(a[i:j])，所以需要记录下最大的长度，maxl = max(maxl, len(a[i:j]))**
+```python
+while True:
+    try:
+        a, b, maxl = input().upper(), input().upper(), 0
+        if len(a) > len(b): a, b = b, a
+        for i in range(len(a)):
+            for j in range(len(a), -1, -1):
+                if a[i:j] in b:
+                    maxl = max(maxl, len(a[i:j]))
+        print(maxl)
+    except:
+        break
+```
+
+讨论区代码二
+```python
+def find_lcsubstr(s1, s2):   
+    m=[[0 for i in range(len(s2)+1)]  for j in range(len(s1)+1)]  #生成0矩阵，为方便后续计算，比字符串长度多了一列  
+    mmax=0   #最长匹配的长度  
+    p=0  #最长匹配对应在s1中的最后一位  
+    for i in range(len(s1)):  
+        for j in range(len(s2)):  
+            if s1[i]==s2[j]:  
+                m[i+1][j+1]=m[i][j]+1  
+                if m[i+1][j+1]>mmax:  
+                    mmax=m[i+1][j+1]  
+                    p=i+1  
+    return mmax   #返回最长子串及其长度  
+
+while True:
+    try:
+        a,b=input(),input()
+        print(find_lcsubstr(a,b))
+    except:
+        break
+
+```
+
+讨论区代码三
+```python
+while True:
+    try:
+        a = input().upper()
+        b = input().upper()
+        n = 0
+        for i in range(len(a)):
+            if a[i-n:i+1] in b:
+                n += 1
+        print(n)
+    except:break
+```
+
+## Q34:
+```
+
+```
+
+
+```python
+
+```
 
 
 
