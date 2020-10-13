@@ -2130,9 +2130,55 @@ Jkdi234klowe90a3
 Jkdi*234*klowe*90*a*3*
 ```
 
-经过提示，我的代码如下
+经过提示，我的代码如下：
+1. 难点一：对于连续数字，如何处理？
+2. 难点二：识别出了数字，如何添加'*'？
+3. 字符串的处理，一般用`res = ''`来重新输出符合要求的字符串，这样解决了难点二。难点一需要思想，对每个数字左右都添加符号，连续数字间会出现两个符号，连续数字边界符号要求，只需要处理两个符号，使用replace方法即可
+4. **若输入字符串中带有该符号，代码会出错。**
 ```python
+while 1:
+    try:
+        s = input()
+        res = ''
+        for i in s:
+            if i.isdigit():
+                res += '*'+i+'*'
+            else:
+                res += i
+        res = res.replace("**",'')
+        print(res)
+    except:
+        break
+```
 
+讨论区依然有优秀代码，不使用上面的方法来判断连续数字，如下：
+1. 使用标识符isNum
+2. 很复杂
+```python
+while True:
+    try:
+        a, res, isNum = input(), "", False
+        for i in a:
+
+            if i.isdigit():
+                if not isNum:
+                    res = res + "*" + i
+                else:
+                    res += i
+                isNum = True
+            else:
+                if isNum:
+                    res = res + "*" + i
+                else:
+                    res += i
+                isNum = False
+        if a[-1].isdigit():
+            res+="*"
+        print(res)
+
+
+    except:
+        break
 ```
 
 
