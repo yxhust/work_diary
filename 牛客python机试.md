@@ -1781,6 +1781,120 @@ while True:
     except:
         break
  ```
+ 
+ ## Q31: 查找兄弟单词
+ ```
+题目描述：https://www.nowcoder.com/practice/03ba8aeeef73400ca7a37a5f3370fe68?tpId=37&&tqId=21250&rp=1&ru=/ta/huawei&qru=/ta/huawei/question-ranking
+```
+
+讨论区代码，有很多学习的地方：
+1. 对于字典中同字母构成的排序组合，用字典来存储，如dd={'abc':['abc','acb','bac','bca','cab','cba']}
+2. 待查找单词lookup的兄弟单词，是dd['lookup']的值的列表中的其他所有单词。要查到dd的键，这里的lookup要排序好
+3. 对于str，排序后的字符串`"".join(sorted(str))`，只是sorted(str)返回的是列表
+```python
+from collections import defaultdict
+
+while True:
+    try:
+        dd = defaultdict(list)
+        a = input().split()
+        # words是输入的单词，lookup是要查找的单词，num是要查找兄弟单词的索引，brothers是找到的兄弟单词列表
+        words, lookup, num, brothers = a[1:1 + int(a[0])], a[-2], int(a[-1]), []
+        for i in words:
+            dd["".join(sorted(i))].append(i)
+        for i in dd["".join(sorted(lookup))]:
+            if i != lookup: brothers.append(i)
+        # 输出
+        print(len(brothers))
+        if brothers and num <= len(brothers):
+            print(sorted(brothers)[num - 1])
+    except:
+        break
+```
+
+## Q32：四则运算求解
+```
+题目：https://www.nowcoder.com/questionTerminal/9566499a2e1546c0a257e885dfdbf30d?answerType=1&f=discussion
+```
+
+讨论区代码，使用eval()求解虽然行，但没学到东西。
+```python
+s=input()
+s=s+(")")#输入
+st=[]#放入数字
+so=[]#放入操作
+so.append("(")
+
+#st为存数字的栈，在这段代码里会处理好数字计算和更新两个栈,so会保留左括号
+def cal_data(st,so):
+    num=0#结果的数字
+    num1=st[-1]#栈顶，分母的位置，可能出现为0的错误
+    st.pop()
+    num2=st[-1]
+    st.pop()
+    op=so[-1]
+    so.pop()
+    if(op=="+"):
+        num=num1+num2
+    elif(op=="-"):
+        num=num2-num1
+    elif(op=="*"):
+        num=num2*num1
+    elif(op=="/"):
+        num=num2/num1
+    st.append(num)
+    return 
+
+##当前运算符与符号栈的栈顶运算符做优先级比较，如果当前优先级高，则不做运算压入栈中;相同或者低都可以进行计算
+def compare_op(op1,so):#op1为输入字符串中，当前的元素。op2为符号栈的栈顶元素
+    op2=so[-1]
+    if (op2=="(" or op2=="[" or op2=="{" ):
+        return False
+    elif (op2=="+" or op2=="-") and (op1=="*" or op1=="/"):
+        return False
+    else:
+        return True
+
+string_mp =[ "+" , "-" , "*" , "/" , ")" , "]" , "}" ]
+nextIsOp=False
+i=0
+while i <len(s):#不包括第len(s)个
+    if (s[i]=="(" or s[i]=="{" or s[i]=="["):
+        so.append(s[i])
+        i=i+1
+    elif (s[i]==")" or s[i]=="]" or s[i]=="}"):
+        while(so[-1]!="(" and so[-1]!="[" and so[-1]!="{"):
+            if(compare_op(s[i],so)):
+                cal_data(st,so)
+        so.pop()
+        i=i+1
+    elif(nextIsOp):
+        while(compare_op(s[i],so)):
+            cal_data(st,so)
+        so.append(s[i])
+        nextIsOp=False#此处又要回到开始状态
+        i=i+1
+    else:
+        j=i
+        if s[j]=="-":
+            i=i+1
+        while(s[i] not in string_mp):
+            i=i+1
+        num=s[j:i]
+        st.append(int(num))
+        nextIsOp=True
+print (st[0])          
+```
+
+对于测试用例'3+2*{1+2*[-4/(8-6)+7]}'，使用eval()会报错，list与int不能加。这时候需要替换掉中括号 
+```
+s = input().replace('{', '(').replace('}', ')').replace('[', '(').replace(']', ')')
+print(eval(s))
+```
+
+
+## Q33:
+
 
 
 
