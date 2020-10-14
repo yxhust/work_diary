@@ -2109,7 +2109,7 @@ print(res)
 print("".join(res))
 ```
 
-## Q35:
+## Q35: 数字加星
 ```
 题目描述
 将一个字符中所有出现的数字前后加上符号“*”，其他字符保持不变
@@ -2180,6 +2180,98 @@ while True:
     except:
         break
 ```
+
+## Q35： 参数解析
+```
+题目描述
+在命令行输入如下命令：
+
+xcopy /s c:\ d:\，
+
+各个参数如下： 
+
+参数1：命令字xcopy 
+
+参数2：字符串/s
+
+参数3：字符串c:\
+
+参数4: 字符串d:\
+
+请编写一个参数解析程序，实现将命令行各个参数解析出来。
+
+解析规则： 
+
+1.参数分隔符为空格 
+2.对于用“”包含起来的参数，如果中间有空格，不能解析为多个参数。比如在命令行输入xcopy /s “C:\program files” “d:\”时，参数仍然是4个，第3个参数应该是字符串C:\program files，而不是C:\program，注意输出参数时，需要将“”去掉，引号不存在嵌套情况。
+3.参数不定长 
+4.输入由用例保证，不会出现不符合要求的输入 
+ 
+输入描述:
+输入一行字符串，可以有空格
+
+输出描述:
+输出参数个数，分解后的参数，每个参数都独占一行
+
+示例1
+输入
+复制
+xcopy /s c:\\ d:\\
+输出
+复制
+4
+xcopy
+/s
+c:\\
+d:\\
+```
+
+讨论区代码，说明：
+1. 通过测试用例，但部分输入结果异常，如'xcopy /s "C:\program files" "d:\"'
+2. 代码思想很好，先判断有无"，有的话做统计，先左边引号，再右边引号
+```python
+a,res = list(input()),list()
+if '"' in a:
+    for i in range(a.count('"')):
+        if i % 2 == 0:
+            res.extend(''.join(a[:a.index('"')]).split())
+        else:
+            res.append(''.join(a[:a.index('"')]))
+        a = a[a.index('"')+1:]
+    res.append(''.join(a))
+else:
+    res = ''.join(a).split()
+print(len(res))
+for i in res:
+    print(i)
+```
+
+经过优化，代码如下：
+1. 输入字符串加入strip()，去除输入的左右空白。有无作用有待考究
+2. 多添加几个临时变量，更好理解代码
+3. str.index()和list.index() 都返回第一个值的索引，后续不管
+4. 核心思想：新增一个变量res，用于保存符合要求的输出
+5. 题目描述对于"的说的较少，该代码认为"间的内容都会作为单独命令解析出来，如'xcopy /s df"C:\program files"rt "d:\"'
+```python
+a,res = input().strip(),[]
+if '"' in a:
+    signal = a.count('"')
+    for i in range(signal):
+        if i%2 == 0:
+            ind = a.index('"')
+            res.extend(a[:ind].split())
+        else:
+            ind = a.index('"')
+            res.append(a[:ind])
+        a = a[ind+1:]
+else:
+    res.extend(a.split())
+    
+print(len(res))
+for i in res:
+    print(i)
+```
+
 
 
 
