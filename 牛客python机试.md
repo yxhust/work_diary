@@ -2272,6 +2272,45 @@ for i in res:
     print(i)
 ```
 
+## Q36: 蛇形矩阵
+```
+题目描述
+题目说明
+
+蛇形矩阵是由1开始的自然数依次排列成的一个矩阵上三角形。
+
+样例输入
+5
+
+样例输出
+1 3 6 10 15
+
+2 5 9 14
+
+4 8 13
+
+7 12
+
+11
+```
+
+讨论区代码一，`根据前一行构建后一行，一直到迭代完所有行`。由于抽象出规则，代码很简洁。
+```python
+while 1:
+    try:
+        n = int(input())
+
+        for i in range(n):
+            if i == 0:
+                res = [j*(j+1)//2 for j in range(1,n+1)]
+            else :
+                res = [i-1 for i in res[1:]]
+            print(" ".join(map(str,res)))
+    except:
+        break
+
+
+```
 
 
 
