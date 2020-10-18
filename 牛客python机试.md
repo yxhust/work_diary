@@ -1,3 +1,51 @@
+## 括号匹配
+```
+题目描述：
+字符串中有括号”()[]{}”，设计算法，判断该字符串是否有效
+括号必须以正确的顺序配对，如：“()”、“()[]”是有效的，但“([)]”无效
+```
+
+代码如下：
+1. 该代码适用于通用字符串
+```python
+def match_parentheses(string):
+    # 把一个list当做栈使用
+    stack = []
+    dic = {"(":")","{":"}","[":"]"}
+    for char in string:
+        if char in dic.keys():
+            stack.append(char)
+        elif char in dic.values():
+            # 当遇到右括号 弹出栈顶元素。若不匹配 提前返回False
+            '''若stack为空，stack.pop()异常
+            if dic.get(stack.pop()) != char:   # 'a'不存在时 dic['a']报错
+                return False
+            '''
+            nearest_signal = stack.pop() if stack else '#'
+            if dic.get(nearest_signal) != char:
+                return False
+        # 若字符串含有非括号字符,不作处理
+        else:
+            continue
+    # 返回True/False 
+    return not stack
+
+
+if __name__ == '__main__':
+    while 1:
+        try:
+            s = input()
+            result = match_parentheses(s)
+            print(s, result)
+        except:
+            break
+```
+
+
+
+
+
+
 ## Q1:计算单词长度
 ```
 题目描述：计算字符串最后一个单词的长度，单词以空格隔开。
