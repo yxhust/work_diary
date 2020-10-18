@@ -90,6 +90,42 @@ if __name__ == '__main__':
             break
 ```
 
+4. 拓展一下，相同字母压缩，但不要求连续，如下输入输出
+    ```
+    aaaaaaaaaabbbbbbbbbbabab
+    ['a', '1', '2', 'b', '1', '2']  6
+    bbbbbbbbbbaaaaaaaaaaba
+    ['b', '1', '1', 'a', '1', '1']  6
+    bbbbbbbbbbbaaaba
+    ['b', '1', '2', 'a', '4']   5
+    ```
+  实现起来很容易，统计好字母出现次数，遍历统计结果，使用write指针修改原列表即可
+    ```python
+    from collections import Counter
+    class Solution(object):
+        def compress(self, chars):
+            result = dict(Counter(chars))
+            write = 0
+            for k,v in result.items():
+                for alpha in k:
+                    chars[write] = alpha
+                    write += 1
+                for digit in str(v):
+                    chars[write] = digit
+                    write += 1
+            print(chars[:write])
+            return write
+
+    if __name__ == '__main__':
+        while 1:
+            try:
+                s = Solution()
+
+                result = s.compress(list(input()))
+                print(s, result)
+            except:
+                break
+    ```
 
 
 
@@ -2153,263 +2189,4 @@ while True:
     try:
 
         dic = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
-        s = input().replace(" ", "")  #s是输入的合并后的字符串
-        ss = ""  #ss为最终返回的字符串
-        odd, even = "", ""  # 字符串的奇数子串和偶数子串
-        # 经过下面的循环，提取奇数与偶数的子串。
-        for i, v in enumerate(s):
-            if i % 2 == 0:
-                even += v
-            else:
-                odd += v
-        # 奇数与偶数部分排序        
-        odd = "".join(sorted(odd))
-        even = "".join(sorted(even))
-
-        # 如果字符串在0123456789abcdefABCDEF范围内，对其做变换，否则不做任何处理。
-        for i in range(len(even)):
-            if even[i] in "0123456789abcdefABCDEF":
-                ss += dic[int(bin(dic.index(even[i].upper())).replace("0b", "").rjust(4, "0")[::-1], 2)]
-            else:
-                ss += even[i]
-            if len(odd) != i:   #注意偶数串可能比奇数串长一个字符，所以要做一下判断。
-                if odd[i] in "0123456789abcdefABCDEF":
-                    ss += dic[int(bin(dic.index(odd[i].upper())).replace("0b", "").rjust(4, "0")[::-1], 2)]
-                else:
-                    ss += odd[i]
-        print(ss)
-    except:
-        break
-```
-
-我的代码，只写到合并字符串、排序字符串，字符转换没完成，代码如下：
-1. 与讨论区代码一区别在于将排序好的奇数位偶数位字符拼接时，使用的for循环，不是while。感觉while会更好，这里的for只是次数的遍历
-```python
-str1,str2 = input().split()
-comb_str = str1+str2
-comb_list = list(comb_str)
-oushu = sorted(comb_list[0::2])
-jishu = sorted(comb_list[1::2])
-
-res = []
-for i in range(len(comb_list)):
-    if oushu:
-        res.append(oushu[0])
-        oushu.pop(0)
-    if jishu:
-        res.append(jishu[0])
-        jishu.pop(0)
-        
-print(res)
-print("".join(res))
-```
-
-## Q35: 数字加星
-```
-题目描述
-将一个字符中所有出现的数字前后加上符号“*”，其他字符保持不变
-
-注意：输入数据可能有多行
-输入描述:
-输入一个字符串
-
-输出描述:
-字符中所有出现的数字前后加上符号“*”，其他字符保持不变
-
-示例1
-输入
-复制
-Jkdi234klowe90a3
-输出
-复制
-Jkdi*234*klowe*90*a*3*
-```
-
-经过提示，我的代码如下：
-1. 难点一：对于连续数字，如何处理？
-2. 难点二：识别出了数字，如何添加'*'？
-3. 字符串的处理，一般用`res = ''`来重新输出符合要求的字符串，这样解决了难点二。难点一需要思想，对每个数字左右都添加符号，连续数字间会出现两个符号，连续数字边界符号要求，只需要处理两个符号，使用replace方法即可
-4. **若输入字符串中带有该符号，代码会出错。**
-```python
-while 1:
-    try:
-        s = input()
-        res = ''
-        for i in s:
-            if i.isdigit():
-                res += '*'+i+'*'
-            else:
-                res += i
-        res = res.replace("**",'')
-        print(res)
-    except:
-        break
-```
-
-讨论区依然有优秀代码，不使用上面的方法来判断连续数字，如下：
-1. 使用标识符isNum
-2. 很复杂
-```python
-while True:
-    try:
-        a, res, isNum = input(), "", False
-        for i in a:
-
-            if i.isdigit():
-                if not isNum:
-                    res = res + "*" + i
-                else:
-                    res += i
-                isNum = True
-            else:
-                if isNum:
-                    res = res + "*" + i
-                else:
-                    res += i
-                isNum = False
-        if a[-1].isdigit():
-            res+="*"
-        print(res)
-
-
-    except:
-        break
-```
-
-## Q35： 参数解析
-```
-题目描述
-在命令行输入如下命令：
-
-xcopy /s c:\ d:\，
-
-各个参数如下： 
-
-参数1：命令字xcopy 
-
-参数2：字符串/s
-
-参数3：字符串c:\
-
-参数4: 字符串d:\
-
-请编写一个参数解析程序，实现将命令行各个参数解析出来。
-
-解析规则： 
-
-1.参数分隔符为空格 
-2.对于用“”包含起来的参数，如果中间有空格，不能解析为多个参数。比如在命令行输入xcopy /s “C:\program files” “d:\”时，参数仍然是4个，第3个参数应该是字符串C:\program files，而不是C:\program，注意输出参数时，需要将“”去掉，引号不存在嵌套情况。
-3.参数不定长 
-4.输入由用例保证，不会出现不符合要求的输入 
- 
-输入描述:
-输入一行字符串，可以有空格
-
-输出描述:
-输出参数个数，分解后的参数，每个参数都独占一行
-
-示例1
-输入
-复制
-xcopy /s c:\\ d:\\
-输出
-复制
-4
-xcopy
-/s
-c:\\
-d:\\
-```
-
-讨论区代码，说明：
-1. 通过测试用例，但部分输入结果异常，如'xcopy /s "C:\program files" "d:\"'
-2. 代码思想很好，先判断有无"，有的话做统计，先左边引号，再右边引号
-```python
-a,res = list(input()),list()
-if '"' in a:
-    for i in range(a.count('"')):
-        if i % 2 == 0:
-            res.extend(''.join(a[:a.index('"')]).split())
-        else:
-            res.append(''.join(a[:a.index('"')]))
-        a = a[a.index('"')+1:]
-    res.append(''.join(a))
-else:
-    res = ''.join(a).split()
-print(len(res))
-for i in res:
-    print(i)
-```
-
-经过优化，代码如下：
-1. 输入字符串加入strip()，去除输入的左右空白。有无作用有待考究
-2. 多添加几个临时变量，更好理解代码
-3. str.index()和list.index() 都返回第一个值的索引，后续不管
-4. 核心思想：新增一个变量res，用于保存符合要求的输出
-5. 题目描述对于"的说的较少，该代码认为"间的内容都会作为单独命令解析出来，如'xcopy /s df"C:\program files"rt "d:\"'
-```python
-a,res = input().strip(),[]
-if '"' in a:
-    signal = a.count('"')
-    for i in range(signal):
-        if i%2 == 0:
-            ind = a.index('"')
-            res.extend(a[:ind].split())
-        else:
-            ind = a.index('"')
-            res.append(a[:ind])
-        a = a[ind+1:]
-else:
-    res.extend(a.split())
-    
-print(len(res))
-for i in res:
-    print(i)
-```
-
-## Q36: 蛇形矩阵
-```
-题目描述
-题目说明
-
-蛇形矩阵是由1开始的自然数依次排列成的一个矩阵上三角形。
-
-样例输入
-5
-
-样例输出
-1 3 6 10 15
-
-2 5 9 14
-
-4 8 13
-
-7 12
-
-11
-```
-
-讨论区代码一，`根据前一行构建后一行，一直到迭代完所有行`。由于抽象出规则，代码很简洁。
-```python
-while 1:
-    try:
-        n = int(input())
-
-        for i in range(n):
-            if i == 0:
-                res = [j*(j+1)//2 for j in range(1,n+1)]
-            else :
-                res = [i-1 for i in res[1:]]
-            print(" ".join(map(str,res)))
-    except:
-        break
-
-
-```
-
-
-
-
-
-
-
+        s = input().replace(" ", "")  #s是输入的
