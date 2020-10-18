@@ -7,6 +7,8 @@
 
 代码如下：
 1. 该代码适用于通用字符串
+2. 若输入如'asjl'没有括号的，返回True
+
 ```python
 def match_parentheses(string):
     # 把一个list当做栈使用
