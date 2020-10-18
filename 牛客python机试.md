@@ -99,7 +99,7 @@ if __name__ == '__main__':
     bbbbbbbbbbbaaaba
     ['b', '1', '2', 'a', '4']   5
     ```
-  实现起来很容易，统计好字母出现次数，遍历统计结果，使用write指针修改原列表即可
+    实现起来很容易，统计好字母出现次数，遍历统计结果，使用write指针修改原列表即可
     ```python
     from collections import Counter
     class Solution(object):
@@ -125,7 +125,7 @@ if __name__ == '__main__':
                 print(s, result)
             except:
                 break
-    ```
+      ```
 
 
 
