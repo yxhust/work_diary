@@ -27,7 +27,7 @@ def findLHS(l):
             if i!=j and abs(l[i]-l[j])<=1 :
                 list_list.append(l[j])
         # 排除含有三种数值的列表，如[1,2,3]
-        if len(set(list_list)) <= 2:
+        if len(set(list_list)) = 2:
             temp_list.append(list_list)
     maxlen = 0
     for k in temp_list:
