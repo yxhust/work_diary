@@ -1,3 +1,64 @@
+## 最长和谐子序列
+```
+和谐数组是指一个数组里元素的最大值和最小值之间的差别正好是1。
+
+现在，给定一个整数数组，你需要在所有可能的子序列中找到最长的和谐子序列的长度。
+
+示例 1:
+
+输入: [1,3,2,2,5,2,3,7]
+输出: 5
+原因: 最长的和谐数组是：[3,2,2,2,3].
+说明: 输入的数组长度最大不超过20,000.
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/longest-harmonious-subsequence
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```
+
+我面试时写的代码，思路是：采用嵌套列表保存和谐子序列，再求最大长度
+```python
+def findLHS(l):
+    leng = len(l)
+    temp_list = []
+    for i in range(0,leng):
+        list_list = [l[i]]
+        for j in range(0,leng):
+            if i!=j and abs(l[i]-l[j])<=1 :
+                list_list.append(l[j])
+        # 排除含有三种数值的列表，如[1,2,3]
+        if len(set(list_list)) <= 2:
+            temp_list.append(list_list)
+    maxlen = 0
+    for k in temp_list:
+        maxlen = max(maxlen,len(k))
+    return maxlen
+
+if __name__ == "__main__":
+    data = [1,3,2,2,5,2,3,7]
+    print(data,findLHS(data))
+```
+
+查看LeetCode优秀代码，思路上很简单：利用哈希表存储数组中元素出现的次数；遍历哈希表，如果当前元素+1也在哈希表中，那么计算两者次数之和，保留最大值
+```python
+class Solution:
+    def findLHS(nums) -> int:
+        dicts={}
+        for i in nums:
+            dicts[i]=dicts.get(i,0)+1
+        res=0
+        for i in dicts:
+            if i+1 in dicts:
+                res=max(res,dicts[i]+dicts[i+1])
+        return res
+
+if __name__ == "__main__":
+    data = [1,3,2,2,5,2,3,7]
+    ob = Solution
+    print(data,ob.findLHS(data))
+```
+
+
 ## 括号匹配
 ```
 题目描述：
