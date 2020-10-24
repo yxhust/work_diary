@@ -1,3 +1,132 @@
+## 找到小镇的法官
+```
+在一个小镇里，按从 1 到 N 标记了 N 个人。传言称，这些人中有一个是小镇上的秘密法官。
+
+如果小镇的法官真的存在，那么：
+
+小镇的法官不相信任何人。
+每个人（除了小镇法官外）都信任小镇的法官。
+只有一个人同时满足属性 1 和属性 2 。
+给定数组 trust，该数组由信任对 trust[i] = [a, b] 组成，表示标记为 a 的人信任标记为 b 的人。
+
+如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的标记。否则，返回 -1。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/find-the-town-judge
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```
+
+## 公交路线
+```
+我们有一系列公交路线。每一条路线 routes[i] 上都有一辆公交车在上面循环行驶。例如，有一条路线 routes[0] = [1, 5, 7]，表示第一辆 (下标为0) 公交车会一直按照 1->5->7->1->5->7->1->... 的车站路线行驶。
+
+假设我们从 S 车站开始（初始时不在公交车上），要去往 T 站。 期间仅可乘坐公交车，求出最少乘坐的公交车数量。返回 -1 表示不可能到达终点车站。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/bus-routes
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```
+
+## 航班预订
+```
+这里有 n 个航班，它们分别从 1 到 n 进行编号。
+
+我们这儿有一份航班预订表，表中第 i 条预订记录 bookings[i] = [i, j, k] 意味着我们在从 i 到 j 的每个航班上预订了 k 个座位。
+
+请你返回一个长度为 n 的数组 answer，按航班编号顺序返回每个航班上预订的座位数。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/corporate-flight-bookings
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```
+
+## 找到最终安全状态
+```
+在有向图中, 我们从某个节点和每个转向处开始, 沿着图的有向边走。 如果我们到达的节点是终点 (即它没有连出的有向边), 我们停止。
+
+现在, 如果我们最后能走到终点，那么我们的起始节点是最终安全的。 更具体地说, 存在一个自然数 K,  无论选择从哪里开始行走, 我们走了不到 K 步后必能停止在一个终点。
+
+哪些节点最终是安全的？ 结果返回一个有序的数组。
+
+该有向图有 N 个节点，标签为 0, 1, ..., N-1, 其中 N 是 graph 的节点数.  图以以下的形式给出: graph[i] 是节点 j 的一个列表，满足 (i, j) 是图的一条有向边。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/find-eventual-safe-states
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```
+
+## 考场就座
+```
+在考场里，一排有 N 个座位，分别编号为 0, 1, 2, ..., N-1 。
+
+当学生进入考场后，他必须坐在能够使他与离他最近的人之间的距离达到最大化的座位上。如果有多个这样的座位，他会坐在编号最小的座位上。(另外，如果考场里没有人，那么学生就坐在 0 号座位上。)
+
+返回 ExamRoom(int N) 类，它有两个公开的函数：其中，函数 ExamRoom.seat() 会返回一个 int （整型数据），代表学生坐的位置；函数 ExamRoom.leave(int p) 代表坐在座位 p 上的学生现在离开了考场。每次调用 ExamRoom.leave(p) 时都保证有学生坐在座位 p 上。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/exam-room
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```
+
+## 度度熊找子串
+```
+度度熊收到了一个只有小写字母的字符串S，他对S的子串产生了兴趣，S的子串为S中任意连续的一段。他发现，一些子串只由一种字母构成，他想知道在S中一共有多少种这样的子串。
+
+例如在串”aaabbaa”中，度度熊想找的子串有”a”,”aa”,”aaa”,”b”,”bb”五种。
+
+输入
+aaabbaa
+输出
+5
+```
+
+我的错误代码，核心思想是：先统计一种字母连续子串，再统计题目要求子串。错误在于: 
+1. `anchor = read + 1 的缩进`，不论if条件是否满足，anchor都会read + 1，最后添加到res的都是长度为1的字符串
+2. 输入s不需要转化为列表，字符串即可，如果想res是['aaa','bb','aa']的话。之所以出现这种错误，在于list.append(x)的x输入理解不到
+```python
+s = list('aaabbaa')
+
+def f(s):
+    res = []
+    anchor = 0
+    for read,char in enumerate(s):
+        if read+1 == len(s) or s[read+1] != s[read]:
+            res.extend(s[anchor:read+1])
+        anchor = read+1
+    print(res)
+    # res ['aaa','bb','aa']
+    # res_dic = {'a':3,'b':2}
+    res_dic = {}
+    for i in res:
+        res_dic[i[0]] = max(len(i),res_dic.get(i[0],len(i)))
+    return sum(res_dic.values())
+
+f(s)
+```
+3. 修正后的完整代码：
+- 由res ['aaa','bb','aa']到 res_dic = {'a':3,'b':2}的这段代码很优秀
+    ```python
+    s = 'aaabbaa'
+
+    def f(s):
+        res = []
+        anchor = 0
+        for read,char in enumerate(s):
+            if read+1 == len(s) or s[read+1] != s[read]:
+                res.append(s[anchor:read+1])
+                anchor = read+1
+        print(res)
+        # res ['aaa','bb','aa']
+        # res_dic = {'a':3,'b':2}
+        res_dic = {}
+        for i in res:
+            res_dic[i[0]] = max(len(i),res_dic.get(i[0],len(i)))
+        return sum(res_dic.values())
+
+    print(f(s))
+    ```
+
+
 ## 最长和谐子序列
 ```
 和谐数组是指一个数组里元素的最大值和最小值之间的差别正好是1。
