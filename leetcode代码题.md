@@ -44,4 +44,16 @@ class Solution:
                     res.append(prices[j] - prices[i])
         return max(res)
 ```
-2. 方法二：动态规划，与最大子序和类似。
+2. 方法二：动态规划，与最大子序和类似。实际写的时候，利用当前元素减去前面元素的最小值，应该有可以优化的点。
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        # 等价于取不降子串，取有最大差的子串
+        if len(prices) < 2:
+            return 0
+        res = prices[1] - prices[0] if (prices[1] - prices[0]) > 0 else 0
+        for i in range(1, len(prices)):
+            if prices[i] > min(prices[:i]):
+                res = max(res, prices[i] - min(prices[:i]))
+        return res
+```
