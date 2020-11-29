@@ -146,3 +146,28 @@ class Solution:
                 res = max(res, prices[i] - min(prices[:i]))
         return res
 ```
+3. 方法三：记录下前一天的最低价格和最高利润，与当前天价格计算出的价格和最大利润做比较，得到**截止到当天**的最低价格和最高利润，一直迭代完所有天的价格得到所有天的最高利润。
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        # 初始化
+        minprice = int(1e9)
+        maxprofit = 0
+        for price in prices:
+            maxprofit = max(maxprofit, price - minprice)
+            minprice = min(minprice, price)
+        return maxprofit
+```
+
+另一种变式，也是对的，但不好理解
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        minprice = float('inf')
+        maxprofit = 0
+        for price in prices:
+            minprice = min(minprice, price)
+            maxprofit = max(maxprofit, price - minprice)
+        return maxprofit
+
+```
