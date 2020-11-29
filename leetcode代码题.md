@@ -33,6 +33,7 @@ class Solution:
 ```
 
 方法二：双指针，从后往前指针插入
+**在涉及到指针，需要画图，可以考虑极限和边界情况，本例中，[5,6,7]与[1,2] ； [1,2,3]与[7,8]
 ```python
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
@@ -81,6 +82,8 @@ class Solution:
             nums.extend(nums1[p1:m])
         nums1[:] = nums[:]
 ```
+
+
 
 
 ## [买卖股票最佳时机](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock)
