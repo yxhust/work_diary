@@ -1,3 +1,52 @@
+## [用最少数量的箭引爆气球](https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons)
+```
+在二维空间中有许多球形的气球。对于每个气球，提供的输入是水平方向上，气球直径的开始和结束坐标。由于它是水平的，所以纵坐标并不重要，因此只要知道开始和结束的横坐标就足够了。开始坐标总是小于结束坐标。
+
+一支弓箭可以沿着 x 轴从不同点完全垂直地射出。在坐标 x 处射出一支箭，若有一个气球的直径的开始和结束坐标为 xstart，xend， 且满足  xstart ≤ x ≤ xend，则该气球会被引爆。可以射出的弓箭的数量没有限制。 弓箭一旦被射出之后，可以无限地前进。我们想找到使得所有气球全部被引爆，所需的弓箭的最小数量。
+
+给你一个数组 points ，其中 points [i] = [xstart,xend] ，返回引爆所有气球所必须射出的最小弓箭数。
+```
+### 方法一：求points交集
+points数组的集合合并一次，points数组长度-1。利用count+=1,由length-count记录数组最后的长度，该长度为所需最少数量的箭。
+```
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        # 排序，均为升序
+        points.sort()
+        length = len(points)
+        # 求交集
+        count = 0
+        for i in range(length-1):
+            al, ar = points[i][0], points[i][1]
+            bl, br = points[i+1][0], points[i+1][1]
+            # 由于已排序，al<=bl，只需判断ar与bl
+            if bl <= ar:
+                points[i+1][0] = min(ar, bl) 
+                points[i+1][1] = min(ar, br)
+                count += 1
+        return length - count
+```
+为什么用count来计数，不直接使用list.pop(index)方法来修改数组呢？这是因为**涉及到下标遍历时，原地增删数组都容易造成下边错误，或超出边界或索引不合预期**。
+举例，在上述代码中，若增加pop(index)，会出现什么情况呢？
+```
+if bl <= ar:
+    points[i + 1][0] = min(ar, bl)
+    points[i + 1][1] = min(ar, br)
+    points.pop(i)
+```
+由于i是固定迭代，i值不会受points删除影响。
+
+第一轮i=0，进入if语句，原地删除points的i=0的数组（嵌套数组），points长度减一，预期中的points最后一个下标会因该pop导致最后一个索引超出边界。
+
+第二轮i=1，points[1]现在变成原points数组的第三个元素，因为原地删除第一个元素数组。
+
+因此，**涉及到下标遍历时，原地增删数组都容易造成下边错误，或超出边界或索引不合预期**
+
+基于上述发现，使用pop(index)方法原地修改列表，不遍历下标的情况可能行，因此换while循环替代for循环。
+
+
+
+
 ## [合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array)
 ```
 给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。
