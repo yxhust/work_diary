@@ -1,3 +1,80 @@
+## [290 单词规律](https://leetcode-cn.com/problems/word-pattern/)
+```
+给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。
+
+这里的 遵循 指完全匹配，例如， pattern 里的每个字母和字符串 str 中的每个非空单词之间存在着双向连接的对应规律。
+```
+### 方法一：将两个对象都映射到列表中，若列表相等则True
+```python
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        
+        words = s.split()
+        dic = {}
+        res = []
+        signal = 1
+        for word in words:
+            if word not in dic:
+                dic[word] = str(signal)
+                signal += 1
+            res.append(dic[word])
+
+        res2 = []
+        signal2 = 1
+        dic2 = {}
+        for i in pattern:
+            if i not in dic2:
+                dic2[i] = str(signal2)
+                signal2 += 1
+            res2.append(dic2[i])
+        # return "".join(res) == "".join(res2)
+        return res == res2
+        
+```
+
+### 方法二：将字符串添加列dic_map中，但无法解决 "cat dog dog fish"与"abbc"的问题，因此查看
+```
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        words = s.split()
+        map_dic = {}
+        if len(pattern) != len(words):
+            return False
+        for i, word in enumerate(words):
+            if word not in map_dic:
+                map_dic[word] = pattern[i]
+            else:
+                if map_dic[word] != pattern[i]:
+                    return False
+        if len(map_dic.values()) != len(set(map_dic.values())):
+            return False
+        return True
+ ```
+ 
+ ### 方法三：方法二的变式
+ ```python
+ class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        # 方法三
+        words = s.split()
+        map_dic = {}
+        if len(pattern) != len(words):
+            return False
+        for i, word in enumerate(words):
+            if word not in map_dic:
+                if pattern[i] in map_dic.values():
+                    return False
+                map_dic[word] = pattern[i]
+            else:
+                if map_dic[word] != pattern[i]:
+                    return False
+        return True
+
+```
+
+### 方法四：双字典存储。todo
+
+
 ## [用最少数量的箭引爆气球](https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons)
 ```
 在二维空间中有许多球形的气球。对于每个气球，提供的输入是水平方向上，气球直径的开始和结束坐标。由于它是水平的，所以纵坐标并不重要，因此只要知道开始和结束的横坐标就足够了。开始坐标总是小于结束坐标。
