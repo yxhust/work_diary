@@ -135,7 +135,24 @@ class Solution:
 
 ```
 
-### 方法四：双字典存储。todo
+### 方法四：双字典存储。
+- len('abb')为3, len('dog cat cat')为1,不要出低级错误。因此需要先拆分s。
+- if条件看起来很复杂，实则是`双射`的判断。若字符串出现在字典str2ch中，另一字符必须等于str2ch字典该字符串的值；若字符出现在相应字典ch2str中，另一字符串必须等于ch2str该字符的值，否则返回False
+```python
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        words = s.split()
+        if len(pattern) != len(words):
+            return False
+        str2ch = {}
+        ch2str = {}       
+        for i in range(len(words)):
+            if (words[i] in str2ch and pattern[i] != str2ch[words[i]]) or (pattern[i] in ch2str and words[i] != ch2str[pattern[i]]):
+                return False
+            str2ch[words[i]] = pattern[i]
+            ch2str[pattern[i]] = words[i]
+        return True
+```
 
 
 ## [用最少数量的箭引爆气球](https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons)
