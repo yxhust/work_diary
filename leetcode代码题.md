@@ -1,3 +1,66 @@
+## [202 快乐数](https://leetcode-cn.com/problems/happy-number/)
+```
+编写一个算法来判断一个数 n 是不是快乐数。
+
+「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为  1，那么这个数就是快乐数。
+
+如果 n 是快乐数就返回 True ；不是，则返回 False 。
+```
+**这道题的思维性很强，初次写代码的时候能判断出：快乐数返回True，不是快乐数的不知道如何返回False。经过分析，是对快乐数的数据规律不清楚**
+
+### 方法一:从上往下，很容易读懂。注意的是，在计算下一个n时，使用的列表digit_list该放在哪段代码片了，放错了位置程序就会出错
+```python
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        digit_set = set()
+        # digit_list = []
+        while n != 1:
+            if n not in digit_set:
+                digit_set.add(n)
+            else:
+                return False
+            temp = n
+            digit_list = []
+            while temp != 0:
+                digit_list.append(temp%10)
+                temp //= 10
+            n = sum(map(lambda x: x**2, digit_list))
+        return True
+```
+
+### 写法二：快乐数的判断没变化，写法上改变。
+- 定义子函数来计算下一个数，子函数一种是手撕，另一种是使用divmod(x, y)，注意**函数返回，若丢失return部分，返回的是None**
+- 判断False，仍可以用if，若n出现过，返回False
+- 更抽象的，就是如下所写的，跳出while有两个条件，返回`n == 1`的True/False。值得借鉴的是，**返回True/False有时可以用返回表达式间接的返回**。
+```python
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        def next_num(x):
+            '''
+            digit_list = []
+            while x != 0:
+                digit_list.append(x%10)
+                x //= 10
+            return sum(map(lambda i: i**2, digit_list))
+            '''
+            next_sum = 0
+            while x != 0:
+                a, b = divmod(x, 10)
+                next_sum += b**2
+                x = a
+            # 当函数没有返回值，返回NoneType
+            return next_sum
+
+        digit_set = set()
+        while n != 1 and n not in digit_set:
+            # if n in digit_set:
+            #     return False
+            digit_set.add(n)
+            n = next_num(n)
+        # return True
+        return n == 1
+```
+
 ## [290 单词规律](https://leetcode-cn.com/problems/word-pattern/)
 ```
 给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。
