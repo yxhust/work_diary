@@ -11,6 +11,27 @@
 2. 另一种思路是：每移除一次，重叠区间减少一个，不就等价于`重叠区间合并一次以减少重叠区间，两个区间变成了一个`，直至原区间最后合并成无重叠区间，即为最少移除区间数量。最终变成合并区间的问题。
 3. 合并区间：先排序，什么条件下合并区间，合并后的新区间放在哪，新区间的左右端点如何确定。想清楚这些问题，代码就可以写出来了。
 
+```python
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        
+        count = 0
+        for i in range(0, len(intervals)-1):
+            curl = intervals[i][0]
+            curr = intervals[i][1]
+            nextl = intervals[i+1][0]
+            nextr = intervals[i+1][1]
+            if nextl < curr:
+                count += 1
+                intervals[i+1][0] = nextl
+                intervals[i+1][1] = min(curr, nextr)
+       
+        return count
+```
+
+**最后的无重叠区间改变了，但是移除次数是等价的。**
+
 ## [202 快乐数](https://leetcode-cn.com/problems/happy-number/)
 ```
 编写一个算法来判断一个数 n 是不是快乐数。
