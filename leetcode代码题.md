@@ -30,6 +30,25 @@ class Solution:
         return count
 ```
 
+### 另一思路：更新当前区间右边界
+```python
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort()       
+        count = 0
+        end = intervals[0][1]
+        for i in range(1, len(intervals)):
+            if end > intervals[i][0]:
+                end = min(end, intervals[i][1])
+                count += 1
+            else:
+                end = intervals[i][1]
+       
+        return count
+```
+
 **最后的无重叠区间改变了，但是移除次数是等价的。**
 
 ## [202 快乐数](https://leetcode-cn.com/problems/happy-number/)
