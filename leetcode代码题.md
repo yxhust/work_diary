@@ -1,3 +1,91 @@
+## [674. 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)
+```
+给定一个未经排序的整数数组，找到最长且 连续递增的子序列，并返回该序列的长度。
+
+连续递增的子序列 可以由两个下标 l 和 r（l < r）确定，如果对于每个 l <= i < r，都有 nums[i] < nums[i + 1] ，那么子序列 [nums[l], nums[l + 1], ..., nums[r - 1], nums[r]] 就是连续递增子序列。
+
+ 
+
+示例 1：
+
+输入：nums = [1,3,5,4,7]
+输出：3
+解释：最长连续递增序列是 [1,3,5], 长度为3。
+尽管 [1,3,5,7] 也是升序的子序列, 但它不是连续的，因为 5 和 7 在原数组里被 4 隔开。 
+示例 2：
+
+输入：nums = [2,2,2,2,2]
+输出：1
+解释：最长连续递增序列是 [2], 长度为1。
+```
+### 方法一：动态规划
+1. 定义dp[i]为以nums[i]结尾的严格递增**连续**子序列长度，一定包括nums[i]
+2. 状态方程。如果nums[i]>nums[i-1],dp[i] = dp[i-1]+1;反之，表示子序列不递增，dp[i] = 1
+3. 最后结果为max(dp)
+```python
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 0: return 0
+        dp = [1] * n
+        for j in range(1, n):
+            if nums[j] > nums[j-1]:
+                dp[j] = dp[j-1] + 1
+            else:
+                dp[j] = 1
+        return max(dp)
+```
+### 方法二：滑动窗口(双指针)
+1. 若为连续递增，窗口继续滑动；若不，则记录当前的连续递增的长度。
+注意一点：每个连续递增子序列一定不存在交集。可以反正，若存在交集，表示两个连续递增子序列一定可以合并成一个。
+```python
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 0: return 0
+        anchor = 0
+        # 记录连续递增子序列的长度
+        leng = 0
+        for read, num in enumerate(nums):
+            if read == n-1 or nums[read+1] <= num:
+                leng = max(leng, read-anchor+1)
+                anchor = read + 1
+        return leng
+```
+
+另一种写法，还没理解到内核啊。
+```python
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 0: return 0
+        anchor = 0
+        # 记录连续递增子序列的长度
+        leng = 0
+        
+        '''
+        # 这种写法无论如何都写不出来。。。
+        for read in range(n):
+            if read == n-1:
+
+            if nums[read] > nums[read-1]:
+                
+                if read == n-1:
+                    leng = max(leng, read-anchor)
+                pass
+            elif  nums[read] <= nums[read-1]:
+                leng = max(leng, read-anchor)
+                anchor = read
+        return leng
+        '''
+        for read in range(n):
+            if read and nums[read] <= nums[read-1]:
+                anchor =  read
+            leng = max(leng, read-anchor+1)
+        return leng
+```
+
+
 ## [435 无重叠区间](https://leetcode-cn.com/problems/non-overlapping-intervals/)
 ```
 给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
