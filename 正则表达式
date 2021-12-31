@@ -1,0 +1,18 @@
+[TOC]
+
+## 1. 测试界面
+[Java正则测试](https://www.lddgo.net/string/regex)
+编程语言正则差异不大，界面优势在于观察结果便捷地修改正则。
+
+## 2. 正则注意事项
+
+### 2.1 符号优先级
+ 
+
+### 2.2 括号
+
+
+
+## 3. 正则参考博客
+- [很全面的JavaScript正则教程，收获很多](https://segmentfault.com/a/1190000040988916)
+- [括号与正则符号优先级](https://newpromise.github.io/2019/02/05/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E6%8B%AC%E5%8F%B7/)
