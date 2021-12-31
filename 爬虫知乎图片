@@ -1,0 +1,82 @@
+```
+# coding=utf-8
+
+import requests
+from bs4 import BeautifulSoup
+from collections import Counter
+import os
+import re
+
+
+def crawl_html_page(main_url, sub_url, pw):
+    header = {
+
+    }
+    proxies = {
+        
+    }
+    url = main_url + sub_url
+    try:
+        page = requests.get(url, timeout=30, headers=header, proxies=proxies, verify=False)
+        soup = BeautifulSoup(page.text, 'html.parser')  # It parses the html data from requested url.
+        return page, soup
+
+    except ConnectionError as err:
+        print("Please check your network connection and re-run the script.")
+        # exit()
+
+    except Exception:
+        print("Please check your network connection and re-run the script.")
+
+
+# 下载图片并保存到本地
+def download(_url, file_name):
+    # 地址若为None则pass
+    if _url is None:
+        pass
+    # 打开链接
+    page, soup = crawl_html_page(_url, "", "qwer118@")
+    # 如果链接不正常则pass
+    if page.status_code != 200:
+        pass
+    else:
+        # 获取链接
+        data = page.content
+        print(data)
+        with open(file_name, "wb") as f:
+            f.write(data)
+
+
+def main():
+    main_url = "https://www.zhihu.com/question"
+    sub_url = "/60042504"
+    page, soup = crawl_html_page(main_url, sub_url, "xxxxxx")
+
+    # 计数器
+    cnt = 0
+
+    # 创建一个set来存放链接，保证链接不重复
+    link_set = set()
+
+    # 获取img标签中的内容
+    for link in soup.find_all('img'):
+        # 属性data-original对应的值即为图片的地址
+        addr = link.get('data-actualsrc')
+        link_set.add(addr)
+
+    for addr in link_set:
+        if addr is not None:
+            if cnt == 100:
+                break
+            # 设置文件路径
+            pathName = r"C:\Users\yy\Desktop\xiaohuangji" + "\\" + str(cnt + 1) + ".jpg"
+            cnt = cnt + 1
+            print("Downloading the " + str(cnt) + "th picture")
+            # 调用下载函数
+            download(addr, pathName)
+
+
+if __name__ == '__main__':
+    main()
+
+```
